@@ -9,8 +9,8 @@ namespace NoteApp
     /// <summary>
     /// Класс который хранит заметки в словаре.
     /// </summary>
-    class Notes
+    public class Notes
     {
-        private Dictionary<string, Note> NotesCollection;
+        public List<Note> _notesCollection { get; set; }
     }
 }

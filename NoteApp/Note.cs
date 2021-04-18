@@ -9,7 +9,7 @@ namespace NoteApp
     /// <summary>
     /// Заметка.
     /// </summary>
-    class Note
+    public class Note : ICloneable
     {
         /// <summary>
         /// Лимит количества символов названия.
@@ -19,16 +19,16 @@ namespace NoteApp
         /// <summary>
         /// Название заметки.
         /// </summary>
-        private string _name; //= "Без названия";
+        private string _title = "Без названия";
 
         /// <summary>
         /// Гетер и сетер для названия.
         /// </summary>
-        public string Name 
+        public string Title 
         {
             get 
             {
-                return _name;
+                return _title;
             }
 
             set
@@ -38,19 +38,36 @@ namespace NoteApp
                     throw new ArgumentException("Имя больше 50 символов");
                 }
 
-                _name = value;
+                _title = value;
             }
         }
 
         /// <summary>
         /// Категория заметки.
         /// </summary>
-        private NoteCategoty _category { get; set; }
+        public NoteCategory category { get; set; }
 
         /// <summary>
         /// Текст заметки.
         /// </summary>
-        private StringBuilder _text { get; set; }
+        private StringBuilder _text;
+
+
+        /// <summary>
+        /// Гетер и сетер текста.
+        /// </summary>
+        public StringBuilder Text
+        {
+            get
+            {
+                return _text;
+            }
+            set
+            {
+                _text = value;
+                modifiedTime = DateTime.Now;
+            }
+        }
 
         /// <summary>
         /// Время создания заметки.
@@ -60,14 +77,23 @@ namespace NoteApp
         /// <summary>
         /// Время последнего изменения заметки.
         /// </summary>
-        private DateTime _lastChangeTime { get; set; }
+        public DateTime modifiedTime { get; set; }
+
+        public Note Clone()
+        {
+            var note = new Note();
+            note.Title = this.Title;
+            note.category = this.category;
+            note.Text = this.Text;
+            note.modifiedTime = this.modifiedTime;
+            return note;
+        }
 
         /// <summary>
         /// Конструктор.
         /// </summary>
         /// <param name="noteCategory"></param>
         /// <param name="name"> По умолчанию "Без названия"</param>
-        public Note(NoteCategoty noteCategory, string name = "Без названия") 
-            => _category = noteCategory;
+        //public Note(NoteCategory noteCategory) => category = noteCategory;
     }
 }

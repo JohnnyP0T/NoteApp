@@ -12,12 +12,12 @@ namespace NoteApp
     /// <summary>
     /// Сохраниение заметок.
     /// </summary>
-    class SaveLoadNotes
+    public class SaveLoadNotes
     {
         /// <summary>
         /// Путь сохранения файла.
         /// </summary>
-        private const string _fileSave = "..\\My Documents\\NoteApp.notes";
+        private const string _fileSave = "C:\\Users\\arrog\\source\\repos\\NoteApp\\SaveFile\\";
 
         /// <summary>
         /// Сохранить Заметку.
@@ -27,6 +27,7 @@ namespace NoteApp
         public static void SaveToFile(Notes data, string filename)
         {
             JsonSerializer serializer = new JsonSerializer();
+            serializer.Formatting = Formatting.Indented;
             using (StreamWriter sw = new StreamWriter(_fileSave + filename))
             using (JsonWriter writer = new JsonTextWriter(sw))
             {
@@ -39,13 +40,13 @@ namespace NoteApp
         /// </summary>
         /// <param name="filename"></param>
         /// <returns></returns>
-        public static Note LoadFromFile(string filename)
+        public static Notes LoadFromFile(string filename)
         {
             JsonSerializer serializer = new JsonSerializer();
             using (StreamReader sr = new StreamReader(_fileSave + filename))
             using (JsonReader reader = new JsonTextReader(sr))
             {
-                return (Note)serializer.Deserialize<Note>(reader);
+                return (Notes)serializer.Deserialize<Notes>(reader);
             }
         }
     }

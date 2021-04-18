@@ -9,14 +9,14 @@ namespace NoteApp
     /// <summary>
     /// Категория заметки.
     /// </summary>
-    enum NoteCategoty
+    public enum NoteCategory
     {
-        Work,
-        Home,
-        HealthAndSports,
-        People,
-        Documents,
-        Finance,
-        Different
+        Работа,
+        Дом,
+        ЗдоровьеИСпорт,
+        Люди,
+        Документы,
+        Финансы,
+        Другое
     }
 }

@@ -117,38 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="MenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="RemoveNoteButton.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAK1JREFUSEvt
-        lW0KgzAQRHMJi16wvW8tFdrD1BnKgEjc7m7Sfz54IOLOBD9iOclwhZfvYQjOcNbkBj9whpESXvuAnGXG
-        IQO8Q164wAn+guFckGZGaBIpCYcLT0k6XFglzeGiVtItXGxLXpCh3cIFS56QwfQNu4WTWoHnFXaxv0Uq
-        0jNpovaQa+dSWEHNJZ6AdElkMFySWVVoRts1t15+sV62X7e5XZO//nBOdpSyAsBYVq+xYnygAAAAAElF
-        TkSuQmCC
-</value>
-  </data>
-  <data name="AddNoteButton.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAKpJREFUSEvt
-        ldEKgzAMRft7sr92jOFvzD26b9huJheCJkvT0Sc9cKBI0ktN0XKS5QKf8N3oDAfoIgVWY8YHdLEaWnSx
-        ilt0CQsCDhjwgsu6/HKDrKFXSPjMZVsgm+sA2Yw1dISEz1zCgoDuAXJCfaId24DsDELYRLIzCGFTKxO8
-        r0ubfwPC/u4BtZ9rPVhrLnR3AeRnUROiB/srIHUBauDG3egeIK9LvZZSPpR6tzt5MlM2AAAAAElFTkSu
-        QmCC
-</value>
-  </data>
-  <data name="EditNoteButton.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAANJJREFUSEvt
-        lUsKwkAQRHvtQld6J/FA7sSltxKULPUKfpd6Bq1K0jCM07QdIgj64GEcK1MJHaL8iTKDV/jo6AVOoQkD
-        pRMjnqFJ6YQumpTCXTRxAw4/WHCHt+awpoKaUbdQ0TWTPMDN0wJuphl1AxVdM3EDDt9XYM3A4ggPzWGZ
-        vMCagaL5Zf1NZNhqkhd4aJ6uuOARLZjDUEm0gIRKIq/rExxBwhmkv+lMXuCfxbslfFrSgaYlaziAvcMS
-        bj5uPxewd3jl3Jx3suPCJ+CV70Vk8gQgjrYhBOBNNAAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>75</value>
-  </metadata>
 </root>
