@@ -15,52 +15,70 @@ namespace NoteAppUI
 
     public partial class MainForm : Form
     {
-        public Notes notes { get; set; }
+        /// <summary>
+        /// Поле формы для хранения обьектов.
+        /// </summary>
+        public Notes Notes { get; set; }
 
-        private BindingList<NotesDataSource> titleList = new BindingList<NotesDataSource>(); 
+        /// <summary>
+        /// Специальный лсит для хранения элементов NotesListBox.
+        /// Будет изменятся в зависимости от выбора CategoryComboBox.
+        /// Не нашел как сделать, что бы просто скрывать некоторые элементы из ListBox.
+        /// </summary>
+        private BindingList<NotesDataSource> _titleList = new BindingList<NotesDataSource>(); 
 
-        private const string nameFileSave = "fileSave.noteapp";
+        /// <summary>
+        /// Имя файла для сохранения.
+        /// </summary>
+        private const string NameFileSave = "fileSave.noteapp";
 
         public MainForm()
         {
-            notes = new Notes();
-            notes._notesCollection = new List<Note>();
+            Notes = new Notes();
+            Notes.NotesCollection = new List<Note>();
 
             InitializeComponent();
+            // Тут нужно новое перечисление, 
+            // потому что NoteCategory логически не может содержать элемент All.
             CategoryComboBox.DataSource = Enum.GetValues(typeof(ShowCategoryNote));
-            CategoryComboBox.SelectedIndex = 0;
+            CategoryComboBox.SelectedIndex = 0; /*=> все*/
+
             try
             {
-                notes = SaveLoadNotes.LoadFromFile(nameFileSave);
+                // Выполнение начальной загрузки из файла.
+                Notes = SaveLoadNotes.LoadFromFile(NameFileSave);
             }
-            catch (Exception exception)
+            catch (Exception exception) // Если файла не будет в нужнем каталоге.
             {
                 MessageBox.Show(exception.Message);
             }
-            if(notes != null)
+
+            if(Notes != null && Notes.NotesCollection != null)
             {
-                foreach(var item in notes._notesCollection)
+                foreach(var item in Notes.NotesCollection)
                 {
-                    titleList.Add(new NotesDataSource(item.Title, item));
+                    _titleList.Add(new NotesDataSource(item.Title, item));
                 }
             }
+            else // Если кто то удалит сохраняемый файл или очистит его.
+            {
+                Notes = new Notes();
+                Notes.NotesCollection = new List<Note>();
+            }
 
-            NotesListBox.DataSource = titleList;
-            NotesListBox.DisplayMember = "title";
-            NotesListBox.ValueMember = "note";
+            //* Биндинг данных.
+            NotesListBox.DataSource = _titleList;
+            NotesListBox.DisplayMember = "title"; // => titelList.title Могут быть одинаковые.
+            NotesListBox.ValueMember = "note"; // => _titleList.note 
+            //*// Даже если title Будут одинаковые NotesListBox.SelectedItem будет указывать на разные обьекты.
 
-            //
+            //* Очистка формы.
             CreatedTimeMaskedTextBox.Text = string.Empty;
             NameNoteLabel.Text = string.Empty;
             CategoryChangeableLabel.Text = string.Empty;
             ModifiedMaskedTextBox.Text = string.Empty;
             TextNoteRichTextBox1.Text = string.Empty;
-            //
-
-        }
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
+            //*
 
         }
 
@@ -72,16 +90,22 @@ namespace NoteAppUI
 
         private void CategoryComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            titleList.Clear();
-            if (notes != null)
+            // Выполняется очистка листа и новое заполнение 
+            // при каждой смене CategoryComboBox.
+            _titleList.Clear();
+
+            // Предостерижение.
+            if (Notes == null)
             {
-                foreach (var item in notes._notesCollection)
+                return;
+            }
+
+            foreach (var item in Notes.NotesCollection)
+            {
+                if(Convert.ToString(CategoryComboBox.SelectedItem) == Convert.ToString(item.Category)
+                || (ShowCategoryNote)CategoryComboBox.SelectedItem == 0 /*=> Все*/)
                 {
-                    if(Convert.ToString(CategoryComboBox.SelectedItem) == Convert.ToString(item.category)
-                    || (ShowCategoryNote)CategoryComboBox.SelectedItem == 0 /*=> Все*/)
-                    {
-                        titleList.Add(new NotesDataSource(item.Title, item));
-                    }
+                    _titleList.Add(new NotesDataSource(item.Title, item));
                 }
             }
         }
@@ -91,30 +115,32 @@ namespace NoteAppUI
             var addEditNoteForm = new AddEditNoteForm();
             var result = addEditNoteForm.ShowDialog();
             
-            if (result == DialogResult.OK && addEditNoteForm.note != null)
+            if (result == DialogResult.OK && addEditNoteForm.Note != null)
             {
-                notes._notesCollection.Add(addEditNoteForm.note);
-                titleList.Add(new NotesDataSource(addEditNoteForm.note.Title, addEditNoteForm.note));
+                Notes.NotesCollection.Add(addEditNoteForm.Note);
+                _titleList.Add(new NotesDataSource(addEditNoteForm.Note.Title, addEditNoteForm.Note));
             }
             
-            SaveLoadNotes.SaveToFile(notes, nameFileSave);
-            
-            if (result == DialogResult.Cancel)
-            {
-                return;
-            }
+            // Сохраниние данных при добавлении новой заметки.
+            SaveLoadNotes.SaveToFile(Notes, NameFileSave);
         }
 
         private void NotesListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // Изменение данных формы в зависимости от выбора в NotesListBox.
             if(NotesListBox.SelectedItem != null)
             {
+                //* Сомневаюсь в этом участке кода.
+                // Так не работает.
+                // Note value = (NotesDataSource)NotesListBox.SelectedItem.note;
                 NotesDataSource item = (NotesDataSource)NotesListBox.SelectedItem;
                 Note value = item.note;
-                CreatedTimeMaskedTextBox.Text = Convert.ToString(value._createTime);
+                //*
+
+                CreatedTimeMaskedTextBox.Text = Convert.ToString(value.CreateTime);
                 NameNoteLabel.Text = value.Title;
-                CategoryChangeableLabel.Text = Convert.ToString(value.category);
-                ModifiedMaskedTextBox.Text = Convert.ToString(value.modifiedTime);
+                CategoryChangeableLabel.Text = Convert.ToString(value.Category);
+                ModifiedMaskedTextBox.Text = Convert.ToString(value.ModifiedTime);
                 TextNoteRichTextBox1.Text = Convert.ToString(value.Text);
             }
             else
@@ -130,14 +156,15 @@ namespace NoteAppUI
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SaveLoadNotes.SaveToFile(notes, nameFileSave);
+            // Сохранение данных при закрытии формы.
+            SaveLoadNotes.SaveToFile(Notes, NameFileSave);
             Close();
-            return;
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            SaveLoadNotes.SaveToFile(notes, nameFileSave);
+            // Сохранение данных при закрытии формы.
+            SaveLoadNotes.SaveToFile(Notes, NameFileSave);
         }
 
         private void EditNoteButton_Click(object sender, EventArgs e)
@@ -149,15 +176,22 @@ namespace NoteAppUI
 
             NotesDataSource item = (NotesDataSource)NotesListBox.SelectedItem;
             Note value = item.note;
+            
+            // Если пользователь нажмет Cancel.
+            // Копия обьекта.
             Note valueUnSave = item.note.Clone();
+            
+            // Передача данных.
             var addEditNoteForm = new AddEditNoteForm(value);
+            // Здесь уже измененный value.
+
             var result = addEditNoteForm.ShowDialog();
             CategoryComboBox_SelectedIndexChanged(sender, e);
 
             if (result == DialogResult.Cancel)
             {
+                // Отмена изменений.
                 value = valueUnSave;
-                return;
             }
         }
 
@@ -170,21 +204,17 @@ namespace NoteAppUI
 
             NotesDataSource item = (NotesDataSource)NotesListBox.SelectedItem;
             Note value = item.note;
+            // Предупреждение.
             DialogResult result = MessageBox.Show("Вы действительно хотите удалить эту заметку: " + value.Title + "?", "Внимание", MessageBoxButtons.OKCancel);
             
             if(result == DialogResult.OK)
             {
-                notes._notesCollection.Remove(value);
-                titleList.Remove(item);
+                Notes.NotesCollection.Remove(value);
+                _titleList.Remove(item);
             }
 
-            SaveLoadNotes.SaveToFile(notes, nameFileSave);
-
-            if (result == DialogResult.Cancel)
-            {
-                return;
-            }
-            
+            // Сохранение данных при удалении обьекта.
+            SaveLoadNotes.SaveToFile(Notes, NameFileSave);
         }
     }
 }

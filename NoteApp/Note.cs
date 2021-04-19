@@ -14,7 +14,7 @@ namespace NoteApp
         /// <summary>
         /// Лимит количества символов названия.
         /// </summary>
-        private const int _limitLengthName = 50;
+        private const int LimitLengthName = 50;
 
         /// <summary>
         /// Название заметки.
@@ -33,7 +33,7 @@ namespace NoteApp
 
             set
             {
-                if(value.Length > _limitLengthName)
+                if(value.Length > LimitLengthName)
                 {
                     throw new ArgumentException("Имя больше 50 символов");
                 }
@@ -45,7 +45,7 @@ namespace NoteApp
         /// <summary>
         /// Категория заметки.
         /// </summary>
-        public NoteCategory category { get; set; }
+        public NoteCategory Category { get; set; }
 
         /// <summary>
         /// Текст заметки.
@@ -65,35 +65,33 @@ namespace NoteApp
             set
             {
                 _text = value;
-                modifiedTime = DateTime.Now;
+                ModifiedTime = DateTime.Now;
             }
         }
 
         /// <summary>
         /// Время создания заметки.
         /// </summary>
-        public readonly DateTime _createTime = DateTime.Now;
+        //public readonly DateTime _createTime = DateTime.Now;
+        public DateTime CreateTime { get; set; } = DateTime.Now;
 
         /// <summary>
         /// Время последнего изменения заметки.
         /// </summary>
-        public DateTime modifiedTime { get; set; }
+        public DateTime ModifiedTime { get; set; }
 
+        /// <summary>
+        /// Реализация интерфейса ICloneable.
+        /// </summary>
+        /// <returns></returns>
         public Note Clone()
         {
             var note = new Note();
             note.Title = this.Title;
-            note.category = this.category;
+            note.Category = this.Category;
             note.Text = this.Text;
-            note.modifiedTime = this.modifiedTime;
+            note.ModifiedTime = this.ModifiedTime;
             return note;
         }
-
-        /// <summary>
-        /// Конструктор.
-        /// </summary>
-        /// <param name="noteCategory"></param>
-        /// <param name="name"> По умолчанию "Без названия"</param>
-        //public Note(NoteCategory noteCategory) => category = noteCategory;
     }
 }

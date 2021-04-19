@@ -13,20 +13,30 @@ namespace NoteAppUI
 {
     public partial class AddEditNoteForm : Form
     {
-        private const int _limitLengthName = 50;
+        /// <summary>
+        /// Ограничение длинны названия.
+        /// </summary>
+        private const int LimitLengthName = 50;
 
-        public Note note { get; set; }
+        /// <summary>
+        /// Свойство для передачи новой\измененной заметки.
+        /// </summary>
+        public Note Note { get; set; }
 
+        /// <summary>
+        /// Конструктор с параметром для передачи заметки.
+        /// </summary>
+        /// <param name="note"></param>
         public AddEditNoteForm(Note note)
         {
             InitializeComponent();
             TitleTextBox.Text = note.Title;
 
             CategoryComboBox.DataSource = Enum.GetValues(typeof(NoteCategory));
-            CategoryComboBox.SelectedItem = note.category;
+            CategoryComboBox.SelectedItem = note.Category;
 
-            this.note = note;
-            CreatedTimeMaskedTextBox.Text = Convert.ToString(note._createTime);
+            this.Note = note;
+            CreatedTimeMaskedTextBox.Text = Convert.ToString(note.CreateTime);
             TextNoteRichTextBox.Text = note.Text.ToString();
         }
 
@@ -36,40 +46,30 @@ namespace NoteAppUI
             TitleTextBox.Text = "Без названия";
             CategoryComboBox.DataSource = Enum.GetValues(typeof(NoteCategory));
             CategoryComboBox.SelectedIndex = 0;
-            note = new Note();
-            CreatedTimeMaskedTextBox.Text = Convert.ToString(note._createTime);
-            if(note.modifiedTime != DateTime.MinValue)
+            Note = new Note();
+            CreatedTimeMaskedTextBox.Text = Convert.ToString(Note.CreateTime);
+            if(Note.ModifiedTime != DateTime.MinValue)
             {
-                ModifiedMaskedTextBox.Text = Convert.ToString(note.modifiedTime);
+                ModifiedMaskedTextBox.Text = Convert.ToString(Note.ModifiedTime);
             }
-
-        }
-
-        private void AddEditNoteForm_Load(object sender, EventArgs e)
-        {
 
         }
 
         private void OkButton_Click(object sender, EventArgs e)
         {
-            note.Text = new StringBuilder(TextNoteRichTextBox.Text);
+            Note.Text = new StringBuilder(TextNoteRichTextBox.Text);
             if(TitleTextBox.Text != string.Empty)
             {
-                note.Title = TitleTextBox.Text;
+                Note.Title = TitleTextBox.Text;
             }
-            note.category = (NoteCategory)CategoryComboBox.SelectedItem;
+            Note.Category = (NoteCategory)CategoryComboBox.SelectedItem;
             DialogResult = DialogResult.OK;
             this.Close();
         }
 
-        private void TitleTextBox_TextChanged(object sender, EventArgs e)
-        {
-           
-        }
-
         private void TitleTextBox_Validating(object sender, CancelEventArgs e)
         {
-            if (TitleTextBox.Text.Length > _limitLengthName)
+            if (TitleTextBox.Text.Length > LimitLengthName)
             {
                 MessageBox.Show("Длинна названия не может быть больше 50");
                 TitleTextBox.BackColor = Color.LightSalmon;
@@ -88,7 +88,7 @@ namespace NoteAppUI
 
             if (dialogResult == DialogResult.OK)
             {
-                note = null;
+                Note = null;
                 DialogResult = DialogResult.Cancel;
                 Close();
             }

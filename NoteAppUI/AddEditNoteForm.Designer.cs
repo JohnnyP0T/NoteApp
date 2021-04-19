@@ -63,7 +63,6 @@ namespace NoteAppUI
             this.TitleTextBox.Name = "TitleTextBox";
             this.TitleTextBox.Size = new System.Drawing.Size(701, 20);
             this.TitleTextBox.TabIndex = 1;
-            this.TitleTextBox.TextChanged += new System.EventHandler(this.TitleTextBox_TextChanged);
             this.TitleTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.TitleTextBox_Validating);
             // 
             // CategoryLabel
@@ -96,7 +95,7 @@ namespace NoteAppUI
             this.ModifiedMaskedTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ModifiedMaskedTextBox.Location = new System.Drawing.Point(280, 99);
-            this.ModifiedMaskedTextBox.Mask = "00/00/0000";
+            this.ModifiedMaskedTextBox.Mask = "00/00/0000 90:00";
             this.ModifiedMaskedTextBox.MaximumSize = new System.Drawing.Size(100, 20);
             this.ModifiedMaskedTextBox.MinimumSize = new System.Drawing.Size(100, 20);
             this.ModifiedMaskedTextBox.Name = "ModifiedMaskedTextBox";
@@ -121,7 +120,7 @@ namespace NoteAppUI
             this.CreatedTimeMaskedTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.CreatedTimeMaskedTextBox.Location = new System.Drawing.Point(71, 99);
-            this.CreatedTimeMaskedTextBox.Mask = "00/00/0000";
+            this.CreatedTimeMaskedTextBox.Mask = "00/00/0000 90:00";
             this.CreatedTimeMaskedTextBox.MaximumSize = new System.Drawing.Size(100, 20);
             this.CreatedTimeMaskedTextBox.MinimumSize = new System.Drawing.Size(100, 20);
             this.CreatedTimeMaskedTextBox.Name = "CreatedTimeMaskedTextBox";
@@ -190,11 +189,10 @@ namespace NoteAppUI
             this.Controls.Add(this.CategoryLabel);
             this.Controls.Add(this.TitleTextBox);
             this.Controls.Add(this.TitleLabel);
-            this.MinimumSize = new System.Drawing.Size(364, 257);
+            this.MinimumSize = new System.Drawing.Size(408, 257);
             this.Name = "AddEditNoteForm";
             this.Text = "Добавление или редактирование заметки";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AddEditNoteForm_FormClosing);
-            this.Load += new System.EventHandler(this.AddEditNoteForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

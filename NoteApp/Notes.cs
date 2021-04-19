@@ -7,10 +7,14 @@ using System.Threading.Tasks;
 namespace NoteApp
 {
     /// <summary>
-    /// Класс который хранит заметки в словаре.
+    /// Класс который хранит заметки в листе.
     /// </summary>
     public class Notes
     {
-        public List<Note> _notesCollection { get; set; }
+        /// <summary>
+        /// Лист с заметками.
+        /// Хотел сдлеать словарь, но в нем нельзя хранить одинаковые ключи.
+        /// </summary>
+        public List<Note> NotesCollection { get; set; }
     }
 }
