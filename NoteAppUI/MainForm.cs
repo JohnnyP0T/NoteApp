@@ -263,6 +263,8 @@ namespace NoteAppUI
 
             // Сохранение данных при удалении обьекта.
             SaveLoadNotes.SaveToFile(Notes, NameFileSave);
+
+            CategoryComboBox_SelectedIndexChanged(sender, e);
         }
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)

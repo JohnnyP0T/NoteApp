@@ -1,19 +1,7 @@
 {
   "NotesCollection": [
     {
-      "Title": "1",
-      "Category": 0,
-      "Text": {
-        "m_MaxCapacity": 2147483647,
-        "Capacity": 16,
-        "m_StringValue": "132",
-        "m_currentThread": 0
-      },
-      "CreateTime": "2021-04-21T13:32:01.0624259+07:00",
-      "ModifiedTime": "2021-04-21T13:32:21.1922334+07:00"
-    },
-    {
-      "Title": "2",
+      "Title": "3",
       "Category": 0,
       "Text": {
         "m_MaxCapacity": 2147483647,
@@ -21,21 +9,9 @@
         "m_StringValue": "",
         "m_currentThread": 0
       },
-      "CreateTime": "2021-04-21T13:32:05.2825594+07:00",
-      "ModifiedTime": "2021-04-21T13:32:06.9191488+07:00"
-    },
-    {
-      "Title": "4",
-      "Category": 0,
-      "Text": {
-        "m_MaxCapacity": 2147483647,
-        "Capacity": 16,
-        "m_StringValue": "",
-        "m_currentThread": 0
-      },
-      "CreateTime": "2021-04-21T13:32:28.6105318+07:00",
-      "ModifiedTime": "2021-04-21T13:32:30.8773627+07:00"
+      "CreateTime": "2021-04-21T15:45:07.2084827+07:00",
+      "ModifiedTime": "2021-04-21T15:45:09.3763558+07:00"
     }
   ],
-  "CurrentNoteIndex": 1
+  "CurrentNoteIndex": 0
 }
