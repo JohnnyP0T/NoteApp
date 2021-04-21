@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,10 +39,6 @@ namespace NoteAppUI
             Notes.NotesCollection = new List<Note>();
 
             InitializeComponent();
-            // Тут нужно новое перечисление, 
-            // потому что NoteCategory логически не может содержать элемент All.
-            CategoryComboBox.DataSource = Enum.GetValues(typeof(ShowCategoryNote));
-            CategoryComboBox.SelectedIndex = 0; /*=> все*/
 
             try
             {
@@ -67,17 +64,28 @@ namespace NoteAppUI
             }
 
             //* Биндинг данных.
+            var currentNoteIndex = Notes.CurrentNoteIndex;
             NotesListBox.DataSource = _titleList;
             NotesListBox.DisplayMember = "title"; // => titelList.title Могут быть одинаковые.
             NotesListBox.ValueMember = "note"; // => _titleList.note 
             //*// Даже если title Будут одинаковые NotesListBox.SelectedItem будет указывать на разные обьекты.
 
+            // Тут нужно новое перечисление, 
+            // потому что NoteCategory логически не может содержать элемент All.
+            CategoryComboBox.DataSource = Enum.GetValues(typeof(ShowCategoryNote));
+            CategoryComboBox.SelectedIndex = 0; /*=> все*/
+
+            if (NotesListBox.Items.Count != 0)
+            {
+                NotesListBox.SelectedIndex = currentNoteIndex;
+            }
+
             //* Очистка формы.
-            CreatedTimeMaskedTextBox.Text = string.Empty;
-            NameNoteLabel.Text = string.Empty;
-            CategoryChangeableLabel.Text = string.Empty;
-            ModifiedMaskedTextBox.Text = string.Empty;
-            TextNoteRichTextBox1.Text = string.Empty;
+            //CreatedTimeMaskedTextBox.Text = string.Empty;
+            //NameNoteLabel.Text = string.Empty;
+            //CategoryChangeableLabel.Text = string.Empty;
+            //ModifiedMaskedTextBox.Text = string.Empty;
+            //TextNoteRichTextBox1.Text = string.Empty;
             //*
 
         }
@@ -100,13 +108,29 @@ namespace NoteAppUI
                 return;
             }
 
-            foreach (var item in Notes.NotesCollection)
+            List<Note> notesSort = Notes.NotesSortDate();
+
+            // Как я понял по заданию надо было так сделать а не через цикл ниже
+            // Проблема в том что у меня не получается првильно ShowNoteCategory преобразовать в NoteCategory.
+            // Из-за этого перегруженный метод в Notes не нужен
+            //notesSort = CategoryComboBox.SelectedIndex != 0 /*=> Все*/
+            //    ? Notes.NotesSortDate((NoteCategory)CategoryComboBox.SelectedItem) : Notes.NotesSortDate();
+
+            notesSort.Reverse();
+
+            // Я думаю что лучше оставить так.
+            foreach (var item in notesSort)
             {
                 if(Convert.ToString(CategoryComboBox.SelectedItem) == Convert.ToString(item.Category)
                 || (ShowCategoryNote)CategoryComboBox.SelectedItem == 0 /*=> Все*/)
                 {
                     _titleList.Add(new NotesDataSource(item.Title, item));
                 }
+            }
+
+            if (NotesListBox.Items.Count != 0)
+            {
+                NotesListBox.SelectedIndex = Notes.CurrentNoteIndex;
             }
         }
 
@@ -120,15 +144,23 @@ namespace NoteAppUI
                 Notes.NotesCollection.Add(addEditNoteForm.Note);
                 _titleList.Add(new NotesDataSource(addEditNoteForm.Note.Title, addEditNoteForm.Note));
             }
-            
+
             // Сохраниние данных при добавлении новой заметки.
             SaveLoadNotes.SaveToFile(Notes, NameFileSave);
+            
+            // Обновление данных в ListBox/ не знаю как лучше можно сделать.
+            CategoryComboBox_SelectedIndexChanged(sender, e);
+
+            if (NotesListBox.Items.Count != 0)
+            {
+                NotesListBox.SelectedIndex = 0;
+            }
         }
 
         private void NotesListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Изменение данных формы в зависимости от выбора в NotesListBox.
-            if(NotesListBox.SelectedItem != null)
+            if (NotesListBox.SelectedItem != null)
             {
                 //* Сомневаюсь в этом участке кода.
                 // Так не работает.
@@ -142,6 +174,11 @@ namespace NoteAppUI
                 CategoryChangeableLabel.Text = Convert.ToString(value.Category);
                 ModifiedMaskedTextBox.Text = Convert.ToString(value.ModifiedTime);
                 TextNoteRichTextBox1.Text = Convert.ToString(value.Text);
+
+                if (NotesListBox.Items.Count != 0)
+                {
+                    Notes.CurrentNoteIndex = NotesListBox.SelectedIndex;
+                }
             }
             else
             {
@@ -186,7 +223,18 @@ namespace NoteAppUI
             // Здесь уже измененный value.
 
             var result = addEditNoteForm.ShowDialog();
+
+            // Сохранение данных при изменении формы.
+            SaveLoadNotes.SaveToFile(Notes, NameFileSave);
+
+            var currentNoteIndex = Notes.CurrentNoteIndex;
+
             CategoryComboBox_SelectedIndexChanged(sender, e);
+
+            if (NotesListBox.Items.Count != 0)
+            {
+                NotesListBox.SelectedIndex = currentNoteIndex;
+            }
 
             if (result == DialogResult.Cancel)
             {
@@ -215,6 +263,14 @@ namespace NoteAppUI
 
             // Сохранение данных при удалении обьекта.
             SaveLoadNotes.SaveToFile(Notes, NameFileSave);
+        }
+
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                RemoveNoteButton.PerformClick();
+            }
         }
     }
 }

@@ -351,11 +351,13 @@ namespace NoteAppUI
             this.ClientSize = new System.Drawing.Size(784, 561);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.MenuStrip);
+            this.KeyPreview = true;
             this.MainMenuStrip = this.MenuStrip;
             this.MinimumSize = new System.Drawing.Size(690, 260);
             this.Name = "MainForm";
             this.Text = "NoteApp";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             this.MenuStrip.ResumeLayout(false);
             this.MenuStrip.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);

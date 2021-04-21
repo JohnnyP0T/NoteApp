@@ -1,43 +1,19 @@
 {
   "NotesCollection": [
     {
-      "Title": "Без названия",
+      "Title": "1",
       "Category": 0,
       "Text": {
         "m_MaxCapacity": 2147483647,
         "Capacity": 16,
-        "m_StringValue": "fsafsafsafsafd",
+        "m_StringValue": "132",
         "m_currentThread": 0
       },
-      "CreateTime": "2021-04-19T15:08:07.4856759+07:00",
-      "ModifiedTime": "2021-04-19T15:11:00.4008564+07:00"
+      "CreateTime": "2021-04-21T13:32:01.0624259+07:00",
+      "ModifiedTime": "2021-04-21T13:32:21.1922334+07:00"
     },
     {
-      "Title": "Без названия",
-      "Category": 0,
-      "Text": {
-        "m_MaxCapacity": 2147483647,
-        "Capacity": 16,
-        "m_StringValue": "",
-        "m_currentThread": 0
-      },
-      "CreateTime": "2021-04-20T17:09:17.3935194+07:00",
-      "ModifiedTime": "2021-04-20T17:09:21.9107467+07:00"
-    },
-    {
-      "Title": "Без названия",
-      "Category": 3,
-      "Text": {
-        "m_MaxCapacity": 2147483647,
-        "Capacity": 16,
-        "m_StringValue": "dfsddf",
-        "m_currentThread": 0
-      },
-      "CreateTime": "2021-04-20T17:39:29.7730812+07:00",
-      "ModifiedTime": "2021-04-20T17:39:36.4097198+07:00"
-    },
-    {
-      "Title": "Без названия",
+      "Title": "2",
       "Category": 0,
       "Text": {
         "m_MaxCapacity": 2147483647,
@@ -45,8 +21,21 @@
         "m_StringValue": "",
         "m_currentThread": 0
       },
-      "CreateTime": "2021-04-20T17:43:02.1401095+07:00",
-      "ModifiedTime": "2021-04-20T17:43:25.4672814+07:00"
+      "CreateTime": "2021-04-21T13:32:05.2825594+07:00",
+      "ModifiedTime": "2021-04-21T13:32:06.9191488+07:00"
+    },
+    {
+      "Title": "4",
+      "Category": 0,
+      "Text": {
+        "m_MaxCapacity": 2147483647,
+        "Capacity": 16,
+        "m_StringValue": "",
+        "m_currentThread": 0
+      },
+      "CreateTime": "2021-04-21T13:32:28.6105318+07:00",
+      "ModifiedTime": "2021-04-21T13:32:30.8773627+07:00"
     }
-  ]
+  ],
+  "CurrentNoteIndex": 1
 }
