@@ -29,6 +29,7 @@ namespace NoteAppUI
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.MenuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,6 +55,7 @@ namespace NoteAppUI
             this.CategoryChangeableLabel = new System.Windows.Forms.Label();
             this.CategoryLabel2 = new System.Windows.Forms.Label();
             this.NameNoteLabel = new System.Windows.Forms.Label();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.MenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -84,7 +86,7 @@ namespace NoteAppUI
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "Выход";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -168,7 +170,7 @@ namespace NoteAppUI
             this.RemoveNoteButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.RemoveNoteButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("RemoveNoteButton.BackgroundImage")));
             this.RemoveNoteButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.RemoveNoteButton.Location = new System.Drawing.Point(91, 494);
+            this.RemoveNoteButton.Location = new System.Drawing.Point(91, 470);
             this.RemoveNoteButton.Name = "RemoveNoteButton";
             this.RemoveNoteButton.Size = new System.Drawing.Size(35, 31);
             this.RemoveNoteButton.TabIndex = 5;
@@ -180,7 +182,7 @@ namespace NoteAppUI
             this.AddNoteButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.AddNoteButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("AddNoteButton.BackgroundImage")));
             this.AddNoteButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.AddNoteButton.Location = new System.Drawing.Point(9, 494);
+            this.AddNoteButton.Location = new System.Drawing.Point(9, 470);
             this.AddNoteButton.Name = "AddNoteButton";
             this.AddNoteButton.Size = new System.Drawing.Size(35, 31);
             this.AddNoteButton.TabIndex = 4;
@@ -192,7 +194,7 @@ namespace NoteAppUI
             this.EditNoteButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.EditNoteButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("EditNoteButton.BackgroundImage")));
             this.EditNoteButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.EditNoteButton.Location = new System.Drawing.Point(50, 494);
+            this.EditNoteButton.Location = new System.Drawing.Point(50, 470);
             this.EditNoteButton.Name = "EditNoteButton";
             this.EditNoteButton.Size = new System.Drawing.Size(35, 31);
             this.EditNoteButton.TabIndex = 3;
@@ -207,7 +209,7 @@ namespace NoteAppUI
             this.NotesListBox.FormattingEnabled = true;
             this.NotesListBox.Location = new System.Drawing.Point(12, 33);
             this.NotesListBox.Name = "NotesListBox";
-            this.NotesListBox.Size = new System.Drawing.Size(219, 459);
+            this.NotesListBox.Size = new System.Drawing.Size(219, 433);
             this.NotesListBox.TabIndex = 2;
             this.NotesListBox.SelectedIndexChanged += new System.EventHandler(this.NotesListBox_SelectedIndexChanged);
             // 
@@ -337,6 +339,11 @@ namespace NoteAppUI
             this.NameNoteLabel.TabIndex = 0;
             this.NameNoteLabel.Text = "errrorrrr";
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -388,6 +395,7 @@ namespace NoteAppUI
         private System.Windows.Forms.Button RemoveNoteButton;
         private System.Windows.Forms.Button AddNoteButton;
         private System.Windows.Forms.Button EditNoteButton;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
     }
 }
 

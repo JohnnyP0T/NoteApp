@@ -26,10 +26,7 @@ namespace NoteApp
         /// </summary>
         public string Title 
         {
-            get 
-            {
-                return _title;
-            }
+            get => _title;
 
             set
             {
@@ -58,10 +55,7 @@ namespace NoteApp
         /// </summary>
         public StringBuilder Text
         {
-            get
-            {
-                return _text;
-            }
+            get => _text;
             set
             {
                 _text = value;
@@ -91,6 +85,7 @@ namespace NoteApp
             note.Category = this.Category;
             note.Text = this.Text;
             note.ModifiedTime = this.ModifiedTime;
+            note.CreateTime = this.CreateTime;
             return note;
         }
     }
