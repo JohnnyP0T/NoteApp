@@ -16,10 +16,7 @@ namespace NoteApp
     /// </summary>
     public class SaveLoadNotes
     {
-        /// <summary>
-        /// Путь сохранения файла.
-        /// </summary>
-        private const string FileSave = "C:\\Users\\arrog\\source\\repos\\NoteApp\\SaveFile\\";
+        private static readonly string FileSave = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
         /// <summary>
         /// Сохранить Заметку.
@@ -30,7 +27,7 @@ namespace NoteApp
         {
             var serializer = new JsonSerializer();
             serializer.Formatting = Formatting.Indented;
-            using (var sw = new StreamWriter(FileSave + filename))
+            using (var sw = new StreamWriter(FileSave + "\\" + filename))
             using (JsonWriter writer = new JsonTextWriter(sw))
             {
                 serializer.Serialize(writer, data);
