@@ -42,7 +42,7 @@ namespace NoteApp
         public static Notes LoadFromFile(string filename)
         {
             var serializer = new JsonSerializer();
-            using (var sr = new StreamReader(FileSave + filename))
+            using (var sr = new StreamReader(FileSave + "\\" + filename))
             using (JsonReader reader = new JsonTextReader(sr))
             {
                 return (Notes)serializer.Deserialize<Notes>(reader);

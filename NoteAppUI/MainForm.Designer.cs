@@ -86,7 +86,7 @@ namespace NoteAppUI
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
             this.exitToolStripMenuItem.Text = "Выход";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -310,9 +310,8 @@ namespace NoteAppUI
             this.CategoryChangeableLabel.AutoSize = true;
             this.CategoryChangeableLabel.Location = new System.Drawing.Point(72, 33);
             this.CategoryChangeableLabel.Name = "CategoryChangeableLabel";
-            this.CategoryChangeableLabel.Size = new System.Drawing.Size(35, 13);
+            this.CategoryChangeableLabel.Size = new System.Drawing.Size(0, 13);
             this.CategoryChangeableLabel.TabIndex = 2;
-            this.CategoryChangeableLabel.Text = "label1";
             // 
             // CategoryLabel2
             // 
@@ -335,9 +334,8 @@ namespace NoteAppUI
             this.NameNoteLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.NameNoteLabel.Location = new System.Drawing.Point(207, 6);
             this.NameNoteLabel.Name = "NameNoteLabel";
-            this.NameNoteLabel.Size = new System.Drawing.Size(107, 31);
+            this.NameNoteLabel.Size = new System.Drawing.Size(0, 31);
             this.NameNoteLabel.TabIndex = 0;
-            this.NameNoteLabel.Text = "errrorrrr";
             // 
             // contextMenuStrip1
             // 

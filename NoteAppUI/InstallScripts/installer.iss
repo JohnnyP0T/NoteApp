@@ -43,9 +43,9 @@ SolidCompression=yes
 Name: "english"; MessagesFile: "compiler:Default.isl"; LicenseFile: "LICENSE.txt"
 Name: "russian"; MessagesFile: "compiler:Languages\Russian.isl"; LicenseFile: "LICENSE.txt"
 
-[Tasks]
+; [Tasks]
 ; Создание иконки на рабочем столе
-Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
+; Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
 
@@ -57,6 +57,6 @@ Source: "Release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs creat
 
 [Icons]
 
-Name: "{group}\{#Name}"; Filename: "iconNoteApp.ico"
+Name: "{group}\{#Name}"; Filename: "{app}\{#ExeName}"
 
-Name: "{commondesktop}\{#Name}"; Filename: "iconNoteApp.ico"; Tasks: desktopicon
+; Name: "{commondesktop}\{#Name}"; Filename: "{app}\{#ExeName}"; Tasks: desktopicon
