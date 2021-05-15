@@ -78,7 +78,7 @@ namespace NoteApp
         /// Реализация интерфейса ICloneable.
         /// </summary>
         /// <returns></returns>
-        public Note Clone()
+        public Object Clone()
         {
             var note = new Note();
             note.Title = this.Title;

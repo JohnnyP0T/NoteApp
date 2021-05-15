@@ -11,7 +11,7 @@ using NoteApp;
 
 namespace NoteAppUI
 {
-    public partial class AddEditNoteForm : Form
+    public partial class NoteForm : Form
     {
         /// <summary>
         /// Ограничение длинны названия.
@@ -27,7 +27,7 @@ namespace NoteAppUI
         /// Конструктор с параметром для передачи заметки.
         /// </summary>
         /// <param name="note"></param>
-        public AddEditNoteForm(Note note)
+        public NoteForm(Note note)
         {
             InitializeComponent();
             TitleTextBox.Text = note.Title;
@@ -40,7 +40,7 @@ namespace NoteAppUI
             TextNoteRichTextBox.Text = note.Text.ToString();
         }
 
-        public AddEditNoteForm()
+        public NoteForm()
         {
             InitializeComponent();
             TitleTextBox.Text = "Без названия";
@@ -84,19 +84,7 @@ namespace NoteAppUI
 
         private void AddEditNoteForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show(this, "Вы уверенны что хотите выйти?", "Внимание", MessageBoxButtons.YesNo);
 
-            if (dialogResult == DialogResult.OK)
-            {
-                Note = null;
-                DialogResult = DialogResult.Cancel;
-                Close();
-            }
-
-            if (dialogResult == DialogResult.No)
-            {
-                e.Cancel = true;
-            }
         }
 
         private void CancelButton_Click(object sender, EventArgs e)

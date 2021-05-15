@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,12 +12,12 @@ namespace NoteApp
     /// </summary>
     public enum NoteCategory
     {
-        Работа,
-        Дом,
-        ЗдоровьеИСпорт,
-        Люди,
-        Документы,
-        Финансы,
-        Другое
+        Work,
+        Home,
+        HealthAndSports,
+        People,
+        Documents,
+        Finance,
+        Ohter
     }
 }

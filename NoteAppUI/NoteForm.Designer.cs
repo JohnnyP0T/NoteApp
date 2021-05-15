@@ -1,7 +1,7 @@
 ﻿
 namespace NoteAppUI
 {
-    partial class AddEditNoteForm
+    partial class NoteForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,6 +29,7 @@ namespace NoteAppUI
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NoteForm));
             this.TitleLabel = new System.Windows.Forms.Label();
             this.TitleTextBox = new System.Windows.Forms.TextBox();
             this.CategoryLabel = new System.Windows.Forms.Label();
@@ -49,9 +50,9 @@ namespace NoteAppUI
             this.TitleLabel.AutoSize = true;
             this.TitleLabel.Location = new System.Drawing.Point(7, 13);
             this.TitleLabel.Name = "TitleLabel";
-            this.TitleLabel.Size = new System.Drawing.Size(58, 13);
+            this.TitleLabel.Size = new System.Drawing.Size(30, 13);
             this.TitleLabel.TabIndex = 0;
-            this.TitleLabel.Text = "Заглавие:";
+            this.TitleLabel.Text = "Title:";
             // 
             // TitleTextBox
             // 
@@ -72,9 +73,9 @@ namespace NoteAppUI
             this.CategoryLabel.AutoSize = true;
             this.CategoryLabel.Location = new System.Drawing.Point(7, 60);
             this.CategoryLabel.Name = "CategoryLabel";
-            this.CategoryLabel.Size = new System.Drawing.Size(63, 13);
+            this.CategoryLabel.Size = new System.Drawing.Size(52, 13);
             this.CategoryLabel.TabIndex = 2;
-            this.CategoryLabel.Text = "Категория:";
+            this.CategoryLabel.Text = "Category:";
             // 
             // CategoryComboBox
             // 
@@ -111,9 +112,9 @@ namespace NoteAppUI
             this.ModifiedLabel.AutoSize = true;
             this.ModifiedLabel.Location = new System.Drawing.Point(212, 102);
             this.ModifiedLabel.Name = "ModifiedLabel";
-            this.ModifiedLabel.Size = new System.Drawing.Size(62, 13);
+            this.ModifiedLabel.Size = new System.Drawing.Size(50, 13);
             this.ModifiedLabel.TabIndex = 9;
-            this.ModifiedLabel.Text = "Изменено:";
+            this.ModifiedLabel.Text = "Modified:";
             // 
             // CreatedTimeMaskedTextBox
             // 
@@ -136,9 +137,9 @@ namespace NoteAppUI
             this.CreatedLabel.AutoSize = true;
             this.CreatedLabel.Location = new System.Drawing.Point(7, 102);
             this.CreatedLabel.Name = "CreatedLabel";
-            this.CreatedLabel.Size = new System.Drawing.Size(53, 13);
+            this.CreatedLabel.Size = new System.Drawing.Size(47, 13);
             this.CreatedLabel.TabIndex = 7;
-            this.CreatedLabel.Text = "Создано:";
+            this.CreatedLabel.Text = "Created:";
             // 
             // TextNoteRichTextBox
             // 
@@ -158,7 +159,7 @@ namespace NoteAppUI
             this.OkButton.Name = "OkButton";
             this.OkButton.Size = new System.Drawing.Size(75, 23);
             this.OkButton.TabIndex = 12;
-            this.OkButton.Text = "Ок";
+            this.OkButton.Text = "Ok";
             this.OkButton.UseVisualStyleBackColor = true;
             this.OkButton.Click += new System.EventHandler(this.OkButton_Click);
             // 
@@ -169,11 +170,11 @@ namespace NoteAppUI
             this.CancelButton.Name = "CancelButton";
             this.CancelButton.Size = new System.Drawing.Size(75, 23);
             this.CancelButton.TabIndex = 13;
-            this.CancelButton.Text = "Отмена";
+            this.CancelButton.Text = "Cacncel";
             this.CancelButton.UseVisualStyleBackColor = true;
             this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
-            // AddEditNoteForm
+            // NoteForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -189,9 +190,10 @@ namespace NoteAppUI
             this.Controls.Add(this.CategoryLabel);
             this.Controls.Add(this.TitleTextBox);
             this.Controls.Add(this.TitleLabel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(408, 257);
-            this.Name = "AddEditNoteForm";
-            this.Text = "Добавление или редактирование заметки";
+            this.Name = "NoteForm";
+            this.Text = "Add or edit a note";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AddEditNoteForm_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -14,20 +14,22 @@ namespace NoteApp
     /// Json формат.
     /// Файл сохранения: C:\\Users\\arrog\\source\\repos\\NoteApp\\SaveFile\\
     /// </summary>
-    public class SaveLoadNotes
+    public static class SaveLoadNotes
     {
-        private static readonly string FileSave = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        private static readonly string fileName = "fileSave.NoteApp";
+
+        public static string PathFileSaveWithName { get; set; } =
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\" + fileName;
 
         /// <summary>
         /// Сохранить Заметку.
         /// </summary>
         /// <param name="data"></param>
-        /// <param name="filename"></param>
-        public static void SaveToFile(Notes data, string filename)
+        public static void SaveToFile(Notes data)
         {
             var serializer = new JsonSerializer();
             serializer.Formatting = Formatting.Indented;
-            using (var sw = new StreamWriter(FileSave + "\\" + filename))
+            using (var sw = new StreamWriter(PathFileSaveWithName))
             using (JsonWriter writer = new JsonTextWriter(sw))
             {
                 serializer.Serialize(writer, data);
@@ -37,12 +39,11 @@ namespace NoteApp
         /// <summary>
         /// Загрузить заметку.
         /// </summary>
-        /// <param name="filename"></param>
         /// <returns></returns>
-        public static Notes LoadFromFile(string filename)
+        public static Notes LoadFromFile()
         {
             var serializer = new JsonSerializer();
-            using (var sr = new StreamReader(FileSave + "\\" + filename))
+            using (var sr = new StreamReader(PathFileSaveWithName))
             using (JsonReader reader = new JsonTextReader(sr))
             {
                 return (Notes)serializer.Deserialize<Notes>(reader);

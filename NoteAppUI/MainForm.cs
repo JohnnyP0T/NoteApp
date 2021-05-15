@@ -28,11 +28,6 @@ namespace NoteAppUI
         /// </summary>
         private BindingList<NotesDataSource> _titleList = new BindingList<NotesDataSource>(); 
 
-        /// <summary>
-        /// Имя файла для сохранения.
-        /// </summary>
-        private const string NameFileSave = "fileSave.noteapp";
-
         public MainForm()
         {
             Notes = new Notes();
@@ -43,7 +38,7 @@ namespace NoteAppUI
             try
             {
                 // Выполнение начальной загрузки из файла.
-                Notes = SaveLoadNotes.LoadFromFile(NameFileSave);
+                Notes = SaveLoadNotes.LoadFromFile();
             }
             catch (Exception exception) // Если файла не будет в нужнем каталоге.
             {
@@ -70,10 +65,14 @@ namespace NoteAppUI
             NotesListBox.ValueMember = "note"; // => _titleList.note 
             //*// Даже если title Будут одинаковые NotesListBox.SelectedItem будет указывать на разные обьекты.
 
-            // Тут нужно новое перечисление, 
-            // потому что NoteCategory логически не может содержать элемент All.
-            CategoryComboBox.DataSource = Enum.GetValues(typeof(ShowCategoryNote));
-            CategoryComboBox.SelectedIndex = 0; /*=> все*/
+            foreach (var category in Enum.GetValues(typeof(NoteCategory)))
+            {
+                CategoryComboBox.Items.Add(category);
+            }
+
+            // Дополнительная категория для формы.
+            CategoryComboBox.Items.Add("All");
+            CategoryComboBox.SelectedItem = "All";
 
             if (NotesListBox.Items.Count != 0)
             {
@@ -121,8 +120,8 @@ namespace NoteAppUI
             // Я думаю что лучше оставить так.
             foreach (var item in notesSort)
             {
-                if(Convert.ToString(CategoryComboBox.SelectedItem) == Convert.ToString(item.Category)
-                || (ShowCategoryNote)CategoryComboBox.SelectedItem == 0 /*=> Все*/)
+                if(CategoryComboBox.SelectedIndex == (int)item.Category
+                || Convert.ToString(CategoryComboBox.SelectedItem) == "All" /*=> Все*/)
                 {
                     _titleList.Add(new NotesDataSource(item.Title, item));
                 }
@@ -136,7 +135,7 @@ namespace NoteAppUI
 
         private void AddNoteButton_Click(object sender, EventArgs e)
         {
-            var addEditNoteForm = new AddEditNoteForm();
+            var addEditNoteForm = new NoteForm();
             var result = addEditNoteForm.ShowDialog();
             
             if (result == DialogResult.OK && addEditNoteForm.Note != null)
@@ -146,7 +145,7 @@ namespace NoteAppUI
             }
 
             // Сохраниние данных при добавлении новой заметки.
-            SaveLoadNotes.SaveToFile(Notes, NameFileSave);
+            SaveLoadNotes.SaveToFile(Notes);
             
             // Обновление данных в ListBox/ не знаю как лучше можно сделать.
             CategoryComboBox_SelectedIndexChanged(sender, e);
@@ -194,14 +193,14 @@ namespace NoteAppUI
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Сохранение данных при закрытии формы.
-            SaveLoadNotes.SaveToFile(Notes, NameFileSave);
+            SaveLoadNotes.SaveToFile(Notes);
             Close();
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             // Сохранение данных при закрытии формы.
-            SaveLoadNotes.SaveToFile(Notes, NameFileSave);
+            SaveLoadNotes.SaveToFile(Notes);
         }
 
         private void EditNoteButton_Click(object sender, EventArgs e)
@@ -216,16 +215,16 @@ namespace NoteAppUI
             
             // Если пользователь нажмет Cancel.
             // Копия обьекта.
-            Note valueUnSave = item.note.Clone();
+            Note valueUnSave = (Note)item.note.Clone();
             
             // Передача данных.
-            var addEditNoteForm = new AddEditNoteForm(value);
+            var addEditNoteForm = new NoteForm(value);
             // Здесь уже измененный value.
 
             var result = addEditNoteForm.ShowDialog();
 
             // Сохранение данных при изменении формы.
-            SaveLoadNotes.SaveToFile(Notes, NameFileSave);
+            SaveLoadNotes.SaveToFile(Notes);
 
             var currentNoteIndex = Notes.CurrentNoteIndex;
 
@@ -262,7 +261,7 @@ namespace NoteAppUI
             }
 
             // Сохранение данных при удалении обьекта.
-            SaveLoadNotes.SaveToFile(Notes, NameFileSave);
+            SaveLoadNotes.SaveToFile(Notes);
 
             CategoryComboBox_SelectedIndexChanged(sender, e);
         }
