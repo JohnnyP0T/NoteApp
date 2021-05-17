@@ -44,11 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Notes.cs" />
+    <Compile Include="Project.cs" />
     <Compile Include="Note.cs" />
     <Compile Include="NoteCategory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SaveLoadNotes.cs" />
+    <Compile Include="ProjectManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

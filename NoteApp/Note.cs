@@ -9,7 +9,7 @@ namespace NoteApp
     /// <summary>
     /// Заметка.
     /// </summary>
-    public class Note : ICloneable
+    public class Note : ICloneable, IEquatable<Note>
     {
         /// <summary>
         /// Лимит количества символов названия.
@@ -47,13 +47,13 @@ namespace NoteApp
         /// <summary>
         /// Текст заметки.
         /// </summary>
-        private StringBuilder _text;
+        private string _text;
 
 
         /// <summary>
         /// Гетер и сетер текста.
         /// </summary>
-        public StringBuilder Text
+        public string Text
         {
             get => _text;
             set
@@ -87,6 +87,26 @@ namespace NoteApp
             note.ModifiedTime = this.ModifiedTime;
             note.CreateTime = this.CreateTime;
             return note;
+        }
+
+
+        public override bool Equals(object other)
+            => other is Note otherNote && Equals(otherNote);
+
+        public bool Equals(Note other)
+        {
+            return Title == other.Title && Category == other.Category && Text == other.Text &&
+                   ModifiedTime == other.ModifiedTime && CreateTime == other.CreateTime;
+        }
+
+        public static bool operator ==(Note note1, Note note2)
+        {
+            return Object.Equals(note1, note2);
+        }
+
+        public static bool operator !=(Note note1, Note note2)
+        {
+            return !Object.Equals(note1, note2);
         }
     }
 }

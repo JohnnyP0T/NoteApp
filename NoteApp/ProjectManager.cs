@@ -12,20 +12,19 @@ namespace NoteApp
     /// <summary>
     /// Сохраниение заметок.
     /// Json формат.
-    /// Файл сохранения: C:\\Users\\arrog\\source\\repos\\NoteApp\\SaveFile\\
     /// </summary>
-    public static class SaveLoadNotes
+    public static class ProjectManager
     {
-        private static readonly string fileName = "fileSave.NoteApp";
+        private const string FileName = "fileSave.NoteApp";
 
         public static string PathFileSaveWithName { get; set; } =
-            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\" + fileName;
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\" + FileName;
 
         /// <summary>
         /// Сохранить Заметку.
         /// </summary>
         /// <param name="data"></param>
-        public static void SaveToFile(Notes data)
+        public static void SaveToFile(Project data)
         {
             var serializer = new JsonSerializer();
             serializer.Formatting = Formatting.Indented;
@@ -40,13 +39,20 @@ namespace NoteApp
         /// Загрузить заметку.
         /// </summary>
         /// <returns></returns>
-        public static Notes LoadFromFile()
+        public static Project LoadFromFile()
         {
             var serializer = new JsonSerializer();
             using (var sr = new StreamReader(PathFileSaveWithName))
             using (JsonReader reader = new JsonTextReader(sr))
             {
-                return (Notes)serializer.Deserialize<Notes>(reader);
+                try
+                {
+                    return (Project)serializer.Deserialize<Project>(reader);
+                }
+                catch (Exception e)
+                {
+                    return null;
+                }
             }
         }
     }

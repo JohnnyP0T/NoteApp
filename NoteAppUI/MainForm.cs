@@ -19,7 +19,7 @@ namespace NoteAppUI
         /// <summary>
         /// Поле формы для хранения обьектов.
         /// </summary>
-        public Notes Notes { get; set; }
+        public Project Notes { get; set; }
 
         /// <summary>
         /// Специальный лсит для хранения элементов NotesListBox.
@@ -30,7 +30,7 @@ namespace NoteAppUI
 
         public MainForm()
         {
-            Notes = new Notes();
+            Notes = new Project();
             Notes.NotesCollection = new List<Note>();
 
             InitializeComponent();
@@ -38,7 +38,7 @@ namespace NoteAppUI
             try
             {
                 // Выполнение начальной загрузки из файла.
-                Notes = SaveLoadNotes.LoadFromFile();
+                Notes = ProjectManager.LoadFromFile();
             }
             catch (Exception exception) // Если файла не будет в нужнем каталоге.
             {
@@ -54,7 +54,7 @@ namespace NoteAppUI
             }
             else // Если кто то удалит сохраняемый файл или очистит его.
             {
-                Notes = new Notes();
+                Notes = new Project();
                 Notes.NotesCollection = new List<Note>();
             }
 
@@ -145,7 +145,7 @@ namespace NoteAppUI
             }
 
             // Сохраниние данных при добавлении новой заметки.
-            SaveLoadNotes.SaveToFile(Notes);
+            ProjectManager.SaveToFile(Notes);
             
             // Обновление данных в ListBox/ не знаю как лучше можно сделать.
             CategoryComboBox_SelectedIndexChanged(sender, e);
@@ -193,14 +193,14 @@ namespace NoteAppUI
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Сохранение данных при закрытии формы.
-            SaveLoadNotes.SaveToFile(Notes);
+            ProjectManager.SaveToFile(Notes);
             Close();
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             // Сохранение данных при закрытии формы.
-            SaveLoadNotes.SaveToFile(Notes);
+            ProjectManager.SaveToFile(Notes);
         }
 
         private void EditNoteButton_Click(object sender, EventArgs e)
@@ -224,7 +224,7 @@ namespace NoteAppUI
             var result = addEditNoteForm.ShowDialog();
 
             // Сохранение данных при изменении формы.
-            SaveLoadNotes.SaveToFile(Notes);
+            ProjectManager.SaveToFile(Notes);
 
             var currentNoteIndex = Notes.CurrentNoteIndex;
 
@@ -261,7 +261,7 @@ namespace NoteAppUI
             }
 
             // Сохранение данных при удалении обьекта.
-            SaveLoadNotes.SaveToFile(Notes);
+            ProjectManager.SaveToFile(Notes);
 
             CategoryComboBox_SelectedIndexChanged(sender, e);
         }

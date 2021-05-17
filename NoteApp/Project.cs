@@ -9,7 +9,7 @@ namespace NoteApp
     /// <summary>
     /// Класс который хранит заметки в листе.
     /// </summary>
-    public class Notes
+    public class Project
     {
         /// <summary>
         /// Лист с заметками.
@@ -24,18 +24,6 @@ namespace NoteApp
         public List<Note> NotesSortDate()
         {
             return _notesSortDate = this.NotesCollection.OrderBy(x => x.CreateTime).ToList();
-        }
-
-        public List<Note> NotesSortDate(NoteCategory category)
-        {
-            foreach (var item in this.NotesCollection)
-            {
-                if (item.Category == category)
-                {
-                    _notesSortDate.Add(item);
-                }
-            }
-            return _notesSortDate = _notesSortDate.OrderBy(x => x.CreateTime).ToList();
         }
     }
 }

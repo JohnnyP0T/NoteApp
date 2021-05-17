@@ -57,7 +57,7 @@ namespace NoteAppUI
 
         private void OkButton_Click(object sender, EventArgs e)
         {
-            Note.Text = new StringBuilder(TextNoteRichTextBox.Text);
+            Note.Text = TextNoteRichTextBox.Text;
             if(TitleTextBox.Text != string.Empty)
             {
                 Note.Title = TitleTextBox.Text;
