@@ -14,11 +14,6 @@ namespace NoteAppUI
     public partial class NoteForm : Form
     {
         /// <summary>
-        /// Ограничение длинны названия.
-        /// </summary>
-        private const int LimitLengthName = 50;
-
-        /// <summary>
         /// Свойство для передачи новой\измененной заметки.
         /// </summary>
         public Note Note { get; set; }
@@ -61,26 +56,6 @@ namespace NoteAppUI
             Note.Category = (NoteCategory)CategoryComboBox.SelectedItem;
             DialogResult = DialogResult.OK;
             Close();
-        }
-
-        private void TitleTextBox_Validating(object sender, CancelEventArgs e)
-        {
-            //if (TitleTextBox.Text.Length > LimitLengthName)
-            //{
-            //    MessageBox.Show("Длинна названия не может быть больше 50");
-            //    TitleTextBox.BackColor = Color.LightSalmon;
-            //    OkButton.Enabled = false;
-            //}
-            //else
-            //{
-            //    TitleTextBox.BackColor = Color.White;
-            //    OkButton.Enabled = true;
-            //}
-        }
-
-        private void AddEditNoteForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-
         }
 
         private void CancelButton_Click(object sender, EventArgs e)

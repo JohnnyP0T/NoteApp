@@ -19,22 +19,15 @@ namespace NoteAppUI
         /// <summary>
         /// Поле формы для хранения обьектов.
         /// </summary>
-        public Project Notes { get; set; }
+        public Project Project { get; set; }
 
         public MainForm()
         {
-            Notes = new Project();
+            Project = new Project();
 
             InitializeComponent();
-
-            try
-            {
-                Notes = ProjectManager.LoadFromFile();
-            }
-            catch (Exception exception) 
-            {
-                MessageBox.Show(exception.Message);
-            }
+            
+            Project = ProjectManager.LoadFromFile();
 
             foreach (var category in Enum.GetValues(typeof(NoteCategory)))
             {
@@ -44,22 +37,17 @@ namespace NoteAppUI
             CategoryComboBox.Items.Add("All");
             CategoryComboBox.SelectedItem = "All";
             
-            FillNotesListBox(Notes);
+            FillNotesListBox(Project);
         }
 
         private void FillNotesListBox(Project notes)
         {
-            if (Notes == null)
-            {
-                return;
-            }
-
             NotesListBox.Items.Clear();
 
-            Notes.NotesCollection = Notes.NotesSortDate();
-            Notes.NotesCollection.Reverse();
+            Project.Notes = Project.SortNotesByDate();
+            Project.Notes.Reverse();
 
-            foreach (var note in notes.NotesCollection)
+            foreach (var note in notes.Notes)
             {
                 if ((note.Category.ToString() == CategoryComboBox.SelectedItem.ToString()) 
                     || CategoryComboBox.SelectedItem.ToString() == "All")
@@ -85,7 +73,7 @@ namespace NoteAppUI
 
         private void CategoryComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            FillNotesListBox(Notes);
+            FillNotesListBox(Project);
         }
 
         private void AddNoteButton_Click(object sender, EventArgs e)
@@ -95,12 +83,16 @@ namespace NoteAppUI
             
             if (result == DialogResult.OK && noteForm.Note != null)
             {
-                Notes.NotesCollection.Add(noteForm.Note);
-                FillNotesListBox(Notes);
+                Project.Notes.Add(noteForm.Note);
+                FillNotesListBox(Project);
                 NotesListBox.SelectedItem = noteForm.Note;
+                if (CategoryComboBox.SelectedItem.ToString() != "All")
+                {
+                    CategoryComboBox.SelectedItem = noteForm.Note.Category;
+                }
             }
 
-            ProjectManager.SaveToFile(Notes);
+            ProjectManager.SaveToFile(Project);
         }
 
         private void NotesListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -117,7 +109,7 @@ namespace NoteAppUI
 
                 if (NotesListBox.Items.Count != 0)
                 {
-                    Notes.CurrentNoteIndex = NotesListBox.SelectedIndex;
+                    Project.CurrentIndex = NotesListBox.SelectedIndex;
                 }
             }
             else
@@ -134,14 +126,14 @@ namespace NoteAppUI
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Сохранение данных при закрытии формы.
-            ProjectManager.SaveToFile(Notes);
+            ProjectManager.SaveToFile(Project);
             Close();
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             // Сохранение данных при закрытии формы.
-            ProjectManager.SaveToFile(Notes);
+            ProjectManager.SaveToFile(Project);
         }
 
         private void EditNoteButton_Click(object sender, EventArgs e)
@@ -152,18 +144,18 @@ namespace NoteAppUI
             }
 
             var note = (Note)NotesListBox.SelectedItem;
-            var noteClone = (Note)note.Clone();
+            var cloneNote = (Note)note.Clone();
             var addEditNoteForm = new NoteForm(note);
             if (addEditNoteForm.ShowDialog() == DialogResult.Cancel)
             {
-                note = noteClone;
+                note = cloneNote;
             }
-            ProjectManager.SaveToFile(Notes);
+            ProjectManager.SaveToFile(Project);
             if (CategoryComboBox.SelectedItem.ToString() != "All")
             {
                 CategoryComboBox.SelectedItem = note.Category;
             }
-            FillNotesListBox(Notes);
+            FillNotesListBox(Project);
             NotesListBox.SelectedItem = note;
         }
 
@@ -177,10 +169,10 @@ namespace NoteAppUI
             DialogResult result = MessageBox.Show("Are you sure want to delete this note: " + note.Title + "?", "Attention", MessageBoxButtons.OKCancel);
             if(result == DialogResult.OK)
             {
-                Notes.NotesCollection.Remove(note);
+                Project.Notes.Remove(note);
             }
-            ProjectManager.SaveToFile(Notes);
-            FillNotesListBox(Notes);
+            ProjectManager.SaveToFile(Project);
+            FillNotesListBox(Project);
         }
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)

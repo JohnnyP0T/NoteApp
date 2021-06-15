@@ -64,7 +64,6 @@ namespace NoteAppUI
             this.TitleTextBox.Name = "TitleTextBox";
             this.TitleTextBox.Size = new System.Drawing.Size(701, 20);
             this.TitleTextBox.TabIndex = 1;
-            this.TitleTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.TitleTextBox_Validating);
             // 
             // CategoryLabel
             // 
@@ -159,7 +158,7 @@ namespace NoteAppUI
             this.OkButton.Name = "OkButton";
             this.OkButton.Size = new System.Drawing.Size(75, 23);
             this.OkButton.TabIndex = 12;
-            this.OkButton.Text = "Ok";
+            this.OkButton.Text = "OK";
             this.OkButton.UseVisualStyleBackColor = true;
             this.OkButton.Click += new System.EventHandler(this.OkButton_Click);
             // 
@@ -170,7 +169,7 @@ namespace NoteAppUI
             this.CancelButton.Name = "CancelButton";
             this.CancelButton.Size = new System.Drawing.Size(75, 23);
             this.CancelButton.TabIndex = 13;
-            this.CancelButton.Text = "Cacncel";
+            this.CancelButton.Text = "Cancel";
             this.CancelButton.UseVisualStyleBackColor = true;
             this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
@@ -194,7 +193,6 @@ namespace NoteAppUI
             this.MinimumSize = new System.Drawing.Size(408, 257);
             this.Name = "NoteForm";
             this.Text = "Add or edit a note";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AddEditNoteForm_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
