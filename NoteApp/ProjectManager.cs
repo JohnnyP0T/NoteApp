@@ -15,10 +15,8 @@ namespace NoteApp
     /// </summary>
     public static class ProjectManager
     {
-        private const string FileName = "fileSave.NoteApp";
 
-        public static string PathFileSaveWithName { get; set; } =
-            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\" + FileName;
+        private const string FileName = "fileSave.NoteApp";
 
         /// <summary>
         /// Сохранить Заметку.
@@ -42,18 +40,21 @@ namespace NoteApp
         public static Project LoadFromFile()
         {
             var serializer = new JsonSerializer();
-            using (var sr = new StreamReader(PathFileSaveWithName))
-            using (JsonReader reader = new JsonTextReader(sr))
+            try
             {
-                try
+                using (var sr = new StreamReader(PathFileSaveWithName))
+                using (JsonReader reader = new JsonTextReader(sr))
                 {
                     return (Project)serializer.Deserialize<Project>(reader);
                 }
-                catch (Exception e)
-                {
-                    return null;
-                }
+            }
+            catch (Exception exception)
+            {
+                return new Project();
             }
         }
+
+        public static string PathFileSaveWithName { get; set; } =
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\" + FileName;
     }
 }

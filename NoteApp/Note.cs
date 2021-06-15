@@ -22,6 +22,45 @@ namespace NoteApp
         private string _title = "Без названия";
 
         /// <summary>
+        /// Текст заметки.
+        /// </summary>
+        private string _text;
+
+        /// <summary>
+        /// Реализация интерфейса ICloneable.
+        /// </summary>
+        /// <returns></returns>
+        public Object Clone()
+        {
+            var note = new Note();
+            note.Title = this.Title;
+            note.Category = this.Category;
+            note.Text = this.Text;
+            note.ModifiedTime = this.ModifiedTime;
+            note.CreateTime = this.CreateTime;
+            return note;
+        }
+
+        public override bool Equals(object other)
+            => other is Note otherNote && Equals(otherNote);
+
+        public bool Equals(Note other)
+        {
+            return Title == other.Title && Category == other.Category && Text == other.Text &&
+                   ModifiedTime == other.ModifiedTime && CreateTime == other.CreateTime;
+        }
+
+        public static bool operator ==(Note note1, Note note2)
+        {
+            return Object.Equals(note1, note2);
+        }
+
+        public static bool operator !=(Note note1, Note note2)
+        {
+            return !Object.Equals(note1, note2);
+        }
+
+        /// <summary>
         /// Гетер и сетер для названия.
         /// </summary>
         public string Title 
@@ -43,12 +82,6 @@ namespace NoteApp
         /// Категория заметки.
         /// </summary>
         public NoteCategory Category { get; set; }
-
-        /// <summary>
-        /// Текст заметки.
-        /// </summary>
-        private string _text;
-
 
         /// <summary>
         /// Гетер и сетер текста.
@@ -73,40 +106,5 @@ namespace NoteApp
         /// Время последнего изменения заметки.
         /// </summary>
         public DateTime ModifiedTime { get; set; }
-
-        /// <summary>
-        /// Реализация интерфейса ICloneable.
-        /// </summary>
-        /// <returns></returns>
-        public Object Clone()
-        {
-            var note = new Note();
-            note.Title = this.Title;
-            note.Category = this.Category;
-            note.Text = this.Text;
-            note.ModifiedTime = this.ModifiedTime;
-            note.CreateTime = this.CreateTime;
-            return note;
-        }
-
-
-        public override bool Equals(object other)
-            => other is Note otherNote && Equals(otherNote);
-
-        public bool Equals(Note other)
-        {
-            return Title == other.Title && Category == other.Category && Text == other.Text &&
-                   ModifiedTime == other.ModifiedTime && CreateTime == other.CreateTime;
-        }
-
-        public static bool operator ==(Note note1, Note note2)
-        {
-            return Object.Equals(note1, note2);
-        }
-
-        public static bool operator !=(Note note1, Note note2)
-        {
-            return !Object.Equals(note1, note2);
-        }
     }
 }

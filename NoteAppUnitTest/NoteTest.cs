@@ -123,7 +123,6 @@ namespace NoteAppUnitTest
             Assert.AreEqual(expected, actual, "Тест сработал неправильно");
         }
 
-        // Такой тест потому что у класса Note нет перегрузки оператора ==.
         [Test(Description = "Тест реализации интерфеса clone")]
         public void TestNoteClone_CorrectValue()
         {
@@ -141,6 +140,5 @@ namespace NoteAppUnitTest
             }
             Assert.AreEqual(expected, actual, "Тест сработал неправильно");
         }
-
     }
 }

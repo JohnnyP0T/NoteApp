@@ -22,10 +22,10 @@ namespace NoteAppUnitTest
             expected.Add(note);
             
             // Act
-            _notes.NotesCollection = expected;
+            _notes.Notes = expected;
             
             // Assert
-            var actual = _notes.NotesCollection;
+            var actual = _notes.Notes;
             Assert.AreEqual(expected, actual, "Тест сработал неправильно");
         }
 
@@ -37,10 +37,10 @@ namespace NoteAppUnitTest
             var note = new Note();
             var expected = new List<Note>();
             expected.Add(note);
-            _notes.NotesCollection = expected;
+            _notes.Notes = expected;
             
             // Act
-            var actual = _notes.NotesCollection;
+            var actual = _notes.Notes;
             
             // Assert
             Assert.AreEqual(expected, actual, "Тест сработал неправильно");
@@ -54,10 +54,10 @@ namespace NoteAppUnitTest
             int expected = 1;
 
             // Act
-            project.CurrentNoteIndex = expected;
+            project.CurrentIndex = expected;
 
             // Assert
-            var actual = project.CurrentNoteIndex;
+            var actual = project.CurrentIndex;
             Assert.AreEqual(expected, actual, "Тест сработал неправильно");
         }
 
@@ -67,10 +67,10 @@ namespace NoteAppUnitTest
             // Setup
             var project = new Project();
             int expected = 1;
-            project.CurrentNoteIndex = expected;
+            project.CurrentIndex = expected;
 
             // Act
-            var actual = project.CurrentNoteIndex;
+            var actual = project.CurrentIndex;
 
             // Assert
             Assert.AreEqual(expected, actual, "Тест сработал неправильно");
@@ -81,17 +81,17 @@ namespace NoteAppUnitTest
         {
             // Setup
             var project = new Project();
-            project.NotesCollection = new List<Note>();
+            project.Notes = new List<Note>();
             var note1 = new Note();
             var note2 = new Note();
             note1.CreateTime = DateTime.MinValue;
-            project.NotesCollection.Add(note1);
-            project.NotesCollection.Add(note2);
+            project.Notes.Add(note1);
+            project.Notes.Add(note2);
 
             // Act
-            project.NotesCollection = project.NotesSortDate();
+            project.Notes = project.SortNotesByDate();
 
-            bool actual = project.NotesCollection[0].CreateTime < project.NotesCollection[1].CreateTime;
+            bool actual = project.Notes[0].CreateTime < project.Notes[1].CreateTime;
             bool expected = true;
 
             // Assert

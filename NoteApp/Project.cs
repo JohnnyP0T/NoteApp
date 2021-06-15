@@ -11,19 +11,23 @@ namespace NoteApp
     /// </summary>
     public class Project
     {
+        public List<Note> SortNotesByDate()
+        {
+            if (Notes.Count != 0)
+            {
+                return Notes.OrderBy(x => x.CreateTime).ToList();
+            }
+
+            return Notes;
+        }
+
         /// <summary>
         /// Лист с заметками.
         /// Хотел сдлеать словарь, но в нем нельзя хранить одинаковые ключи.
         /// </summary>
-        public List<Note> NotesCollection { get; set; }
+        public List<Note> Notes { get; set; } = new List<Note>();
 
-        private List<Note> _notesSortDate = new List<Note>();
+        public int CurrentIndex { get; set; }
 
-        public int CurrentNoteIndex { get; set; }
-
-        public List<Note> NotesSortDate()
-        {
-            return _notesSortDate = this.NotesCollection.OrderBy(x => x.CreateTime).ToList();
-        }
     }
 }

@@ -18,6 +18,6 @@ namespace NoteApp
         People,
         Documents,
         Finance,
-        Ohter
+        Other
     }
 }
