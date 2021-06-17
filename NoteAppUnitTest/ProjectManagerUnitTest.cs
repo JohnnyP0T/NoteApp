@@ -12,145 +12,127 @@ namespace NoteAppUnitTest
 {
     class ProjectManagerUnitTest
     {
-        private const string CorrectFileProjectFileName = @"\TestData\correctprojectfile.NoteApp";
+        /// <summary>
+        /// Путь к эталонному корректному файлу.
+        /// </summary>
+        private readonly string _correctProjectFileName = Directory.GetCurrentDirectory() + @"\TestData\correctprojectfile.NoteApp";
+        
+        /// <summary>
+        /// Путь к эталонному некорректному файлу.
+        /// </summary>
+        private readonly string _uncorrectProjectFileName = Directory.GetCurrentDirectory() + @"\TestData\uncorrectprojectfile.NoteApp";
+        
+        /// <summary>
+        /// Путь для сохранения тестового файла.
+        /// </summary>
+        private readonly string _outputProjectFileName = Directory.GetCurrentDirectory() + @"\Output\savedfile.NoteApp";
+        
+        /// <summary>
+        /// Несуществующий файл.
+        /// </summary>
+        private readonly string _nonExsistProjectFileName = Directory.GetCurrentDirectory() + @"\nonExsistenFile.NoteApp";
 
         private Project GetCorrectProject()
         {
             //TODO
             var project = new Project();
-            var note = new Note();
-            note.Category = NoteCategory.Documents;
-            note.CreateTime = new DateTime(1999, 10, 12, 13, 12, 4);
-            note.Text = "Text";
-            note.Title = "Title";
-            note.ModifiedTime = new DateTime(1999, 10, 12, 13, 12, 4);
+            var note = new Note
+            {
+                Category = NoteCategory.Documents,
+                CreateTime = new DateTime(1999, 10, 12, 13, 12, 4),
+                Text = "Text",
+                Title = "Title",
+                ModifiedTime = new DateTime(1999, 10, 12, 13, 12, 4)
+            };
             project.Notes.Add(note);
-            var note2 = new Note();
-            note2.Category = NoteCategory.Finance;
-            note2.CreateTime = new DateTime(2021, 3, 13, 1, 2, 3);
-            note2.Text = "SomeText";
-            note2.Title = "SomeTitle";
-            note2.ModifiedTime = new DateTime(2021, 3, 13, 1, 2, 3);
+            var note2 = new Note
+            {
+                Category = NoteCategory.Finance,
+                CreateTime = new DateTime(2021, 3, 13, 1, 2, 3),
+                Text = "SomeText",
+                Title = "SomeTitle",
+                ModifiedTime = new DateTime(2021, 3, 13, 1, 2, 3)
+            };
             project.Notes.Add(note2);
             return project;
         }
 
-        [TestCase(Description = "Positive project manager get test", TestName = "Project manager get test")]
-        public void ProjectManagerGetTest()
-        {
-            var project = GetCorrectProject();
-
-            ProjectManager.PathFileSaveWithName = "correctprojectfile.NoteApp";
-            ProjectManager.SaveToFile(project);
-        }
-        
-        private const string FileName = "fileSaveForTest.NoteApp";
-
-        // Тут нет сравнения времени потому что при создании нового обьекта оно будет другое
-        [TestCase(TestName = "Тест загрузки из файла")]
-        public void ProjectManagerTest_LoadNote()
+        [TestCase(Description = "Load correct file", TestName = "Project manager test load")]
+        public void LoadFromFile_SaveCorrectData_FileSaveCorrectly()
         {
             // Setup
-            ProjectManager.PathFileSaveWithName =
-                Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\TestFiles\\" + FileName;
-            var expected = new Note();
-            expected.Category = NoteCategory.Documents;
-            expected.Text = "Text";
-            expected.Title = "Title";
+            var expectedProject = GetCorrectProject();
+
+            ProjectManager.PathFileSaveWithName = _correctProjectFileName;
 
             // Act
-            var project = ProjectManager.LoadFromFile();
-            var actual = project.Notes[0];
+            var actualProject = ProjectManager.LoadFromFile();
 
             // Assert
+            Assert.AreEqual(expectedProject.Notes.Count, actualProject.Notes.Count);
             Assert.Multiple(() =>
             {
-                Assert.AreEqual(expected.Category, actual.Category, "category");
-                Assert.AreEqual(expected.Text, actual.Text, "text");
-                Assert.AreEqual(expected.Title, actual.Title, "title");
+                for (int i = 0; i < expectedProject.Notes.Count; i++)
+                {
+                    var expected = expectedProject.Notes[i];
+                    var actual = actualProject.Notes[i];
+
+                    Assert.AreEqual(expected, actual);
+                }
             });
         }
 
-        [TestCase(TestName = "Тест загрузки в файл")]
-        public void ProjectManagerTest_SaveNote()
+        [TestCase(Description = "Read correct file", TestName = "Project manager test save")]
+        public void SaveToFile_SaveCorrectData_FileSaveCorrectly()
         {
             // Setup
-            ProjectManager.PathFileSaveWithName =
-                Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\TestFiles\\" + FileName;
-            var expected = new Note();
-            expected.Category = NoteCategory.Documents;
-            expected.Text = "Text";
-            expected.Title = "Title";
-            var project = new Project();
-            project.Notes.Add(expected);
-            string[] linesFileExpected =
-                File.ReadAllLines(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName 
-                                  + "\\TestFiles\\" + FileName);
+            var savingProject = GetCorrectProject();
+            ProjectManager.PathFileSaveWithName = _outputProjectFileName;
+            
+            if (File.Exists(_outputProjectFileName))
+            {
+                File.Delete(_outputProjectFileName);
+            }
+
+            if (!Directory.Exists("Output"))
+            {
+                Directory.CreateDirectory("Output");
+            }
+
+            // Act
+            ProjectManager.SaveToFile(savingProject);
+
+            // Assert
+            var actual = File.ReadAllText(_outputProjectFileName);
+            var expected = File.ReadAllText(_correctProjectFileName);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test(Description = "Read broken file")]
+        public void LoadFromFile_LoadBrokenFile_NewEmptyProject()
+        {
+            // Setup
+            ProjectManager.PathFileSaveWithName = _uncorrectProjectFileName;
+
+            // Act
+            var actualProject = ProjectManager.LoadFromFile();
+
+            // Assert
+            Assert.AreEqual(0, actualProject.Notes.Count);
+        }
+
+        [Test(Description = "Try to read nonexistent file")]
+        public void LoadFromFile_NonexistentFile_NewEmptyProject()
+        {
+            // Setup
+            ProjectManager.PathFileSaveWithName = _nonExsistProjectFileName;
             
             // Act
-            ProjectManager.SaveToFile(project);
+            var actualProject = ProjectManager.LoadFromFile();
 
             // Assert
-            string[] linesFileActual =
-                File.ReadAllLines(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\TestFiles\\" + FileName);
-
-            Assert.Multiple(() =>
-            {
-                Assert.AreEqual(linesFileExpected[3], linesFileActual[3], "title");
-                Assert.AreEqual(linesFileExpected[4], linesFileActual[4], "category");
-                Assert.AreEqual(linesFileExpected[5], linesFileActual[5], "text");
-            });
+            Assert.AreEqual(0, actualProject.Notes.Count);
         }
-
-        [TestCase(TestName = "Тест загрузки из поврежденного файла")]
-        public void ProjectManagerTest_LoadBrokeFile()
-        {
-            // Setup
-            string fileName = "fileSaveForTest_Broke.NoteApp";
-            ProjectManager.PathFileSaveWithName =
-                Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\TestFiles\\" + fileName;
-
-            // Act
-            var actual = ProjectManager.LoadFromFile();
-
-            // Assert
-            Assert.AreEqual(0, actual.Notes.Count, "Тест сработал неправильно");
-        }
-
-        [TestCase(TestName = "Тест загрузки в поврежденный файл")]
-        public void ProjectManagerTest_SaveBrokeFile()
-        {
-            // Setup
-            string fileName = "fileSaveForTest_Broke.NoteApp";
-            ProjectManager.PathFileSaveWithName =
-                Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\TestFiles\\" + fileName;
-            var expected = new Note();
-            expected.Category = NoteCategory.Documents;
-            expected.Text = "Text";
-            expected.Title = "Title";
-            var project = new Project();
-            project.Notes = new List<Note>();
-            project.Notes.Add(expected);
-            string saveBrokeFile =
-                File.ReadAllText(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\TestFiles\\" +
-                                 fileName);
-
-            // Act
-            ProjectManager.SaveToFile(project);
-            var projectLoaded = ProjectManager.LoadFromFile();
-            var actual = projectLoaded.Notes[0];
-
-            // Assert
-            Assert.Multiple(() =>
-            {
-                Assert.AreEqual(expected.Category, actual.Category, "category");
-                Assert.AreEqual(expected.Text, actual.Text, "text");
-                Assert.AreEqual(expected.Title, actual.Title, "title");
-                Assert.AreEqual(1, projectLoaded.Notes.Count, "поврежденный файл затирается и загружается один новый объект");
-            });
-
-            File.WriteAllText(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "\\TestFiles\\" + fileName, saveBrokeFile);
-        }
-
     }
 }

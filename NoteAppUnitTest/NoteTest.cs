@@ -7,8 +7,14 @@ namespace NoteAppUnitTest
 {
     public class NoteTest
     {
+        /// <summary>
+        /// Заметка для тестов.
+        /// </summary>
         private Note _note;
 
+        /// <summary>
+        /// Setup.
+        /// </summary>
         public void Setup()
         {
             _note = new Note();
@@ -18,9 +24,14 @@ namespace NoteAppUnitTest
         [TestCase("Titleeee", TestName = "Позитивный тест сетера названия")]
         public void TestNoteSetTitle(string expected)
         {
+            // Setup
             Setup();
             var title = expected;
+
+            // Act
             _note.Title = title;
+                        
+            // Assert
             var actual = _note.Title;
             Assert.AreEqual(expected, actual, "Сетер сработал неправильно");
         }
@@ -29,7 +40,10 @@ namespace NoteAppUnitTest
             "Присвоение имени больше 50 символов", TestName = "Негативный тест сетера названия")]
         public void TestNoteSetTitle_ArgumentException(string wrongTitle, string message)
         {
+            // Setup
             Setup();
+
+            // Assert
             Assert.Throws<ArgumentException>(
                 () => { _note.Title = wrongTitle; },
                 message);
@@ -38,15 +52,21 @@ namespace NoteAppUnitTest
         [TestCase("CorrectTitle", TestName = "Тест гетера названия")]
         public void TestNoteGetTitle_CorrectValue(string expected)
         {
+            // Setup
             Setup();
             _note.Title = expected;
+
+            // Act
             var actual = _note.Title;
+
+            // Assert
             Assert.AreEqual(expected, actual, "Гетер сработал не правильно");
         }
 
         [TestCase(NoteCategory.Documents, TestName = "Тест сетера категории")]
         public void TestNoteSetCategory_CorrectValue(NoteCategory expected)
         {
+            //TODO
             Setup();
             var category = expected;
             _note.Category = category;

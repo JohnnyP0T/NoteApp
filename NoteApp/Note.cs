@@ -41,15 +41,6 @@ namespace NoteApp
             return note;
         }
 
-        public override bool Equals(object other)
-            => other is Note otherNote && Equals(otherNote);
-
-        public bool Equals(Note other)
-        {
-            return Title == other.Title && Category == other.Category && Text == other.Text &&
-                   ModifiedTime == other.ModifiedTime && CreateTime == other.CreateTime;
-        }
-
         public static bool operator ==(Note note1, Note note2)
         {
             return Object.Equals(note1, note2);
@@ -93,6 +84,34 @@ namespace NoteApp
             {
                 _text = value;
                 ModifiedTime = DateTime.Now;
+            }
+        }
+
+        public bool Equals(Note other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return _title == other._title && _text == other._text && Category == other.Category && CreateTime.Equals(other.CreateTime) && ModifiedTime.Equals(other.ModifiedTime);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Note) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = (_title != null ? _title.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (_text != null ? _text.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (int) Category;
+                hashCode = (hashCode * 397) ^ CreateTime.GetHashCode();
+                hashCode = (hashCode * 397) ^ ModifiedTime.GetHashCode();
+                return hashCode;
             }
         }
 
