@@ -28,6 +28,5 @@ namespace NoteApp
         public List<Note> Notes { get; set; } = new List<Note>();
 
         public int CurrentIndex { get; set; }
-
     }
 }

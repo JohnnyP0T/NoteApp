@@ -17,14 +17,21 @@ namespace NoteApp
         private const int LimitLengthName = 50;
 
         /// <summary>
+        /// Дефолтное название заметки.
+        /// </summary>
+        private const string DefaultTitle = "Без названия";
+
+        private const string DefaultText = "";
+
+        /// <summary>
         /// Название заметки.
         /// </summary>
-        private string _title = "Без названия";
+        private string _title = DefaultTitle;
 
         /// <summary>
         /// Текст заметки.
         /// </summary>
-        private string _text;
+        private string _text = DefaultText;
 
         /// <summary>
         /// Реализация интерфейса ICloneable.
@@ -71,8 +78,9 @@ namespace NoteApp
 
         /// <summary>
         /// Категория заметки.
+        /// Дефолтное значение Other.
         /// </summary>
-        public NoteCategory Category { get; set; }
+        public NoteCategory Category { get; set; } = NoteCategory.Other;
 
         /// <summary>
         /// Гетер и сетер текста.

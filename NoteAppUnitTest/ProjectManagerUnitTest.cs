@@ -32,6 +32,10 @@ namespace NoteAppUnitTest
         /// </summary>
         private readonly string _nonExsistProjectFileName = Directory.GetCurrentDirectory() + @"\nonExsistenFile.NoteApp";
 
+        /// <summary>
+        /// Получение корректного проекта, такой же в эталонном файле.
+        /// </summary>
+        /// <returns>Корректный проект</returns>
         private Project GetCorrectProject()
         {
             //TODO
@@ -57,7 +61,7 @@ namespace NoteAppUnitTest
             return project;
         }
 
-        [TestCase(Description = "Load correct file", TestName = "Project manager test load")]
+        [TestCase(Description = "Загрузка корректного файла")]
         public void LoadFromFile_SaveCorrectData_FileSaveCorrectly()
         {
             // Setup
@@ -82,7 +86,7 @@ namespace NoteAppUnitTest
             });
         }
 
-        [TestCase(Description = "Read correct file", TestName = "Project manager test save")]
+        [TestCase(Description = "Чтение корректного файла")]
         public void SaveToFile_SaveCorrectData_FileSaveCorrectly()
         {
             // Setup
@@ -109,7 +113,7 @@ namespace NoteAppUnitTest
             Assert.AreEqual(expected, actual);
         }
 
-        [Test(Description = "Read broken file")]
+        [Test(Description = "Чтение поврежденного файла")]
         public void LoadFromFile_LoadBrokenFile_NewEmptyProject()
         {
             // Setup
@@ -122,7 +126,7 @@ namespace NoteAppUnitTest
             Assert.AreEqual(0, actualProject.Notes.Count);
         }
 
-        [Test(Description = "Try to read nonexistent file")]
+        [Test(Description = "Попытка считать несуществующий файл")]
         public void LoadFromFile_NonexistentFile_NewEmptyProject()
         {
             // Setup

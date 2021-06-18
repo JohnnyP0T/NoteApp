@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using NoteApp;
@@ -26,7 +27,7 @@ namespace NoteAppUnitTest
             
             // Assert
             var actual = _notes.Notes;
-            Assert.AreEqual(expected, actual, "Тест сработал неправильно");
+            Assert.AreEqual(expected, actual);
         }
 
         [TestCase(TestName = "Тест Гетера NotesCollection")]
@@ -43,7 +44,7 @@ namespace NoteAppUnitTest
             var actual = _notes.Notes;
             
             // Assert
-            Assert.AreEqual(expected, actual, "Тест сработал неправильно");
+            Assert.AreEqual(expected, actual);
         }
 
         [TestCase(TestName = "Тест сетера CurrentNoteIndex")]
@@ -76,26 +77,50 @@ namespace NoteAppUnitTest
             Assert.AreEqual(expected, actual, "Тест сработал неправильно");
         }
 
+        [TestCase(TestName = "Тест сориторовки по времени создания пустого листа")]
+        public void ProjectTestNotesSortDate_EmptyList()
+        {
+            // Setup
+            var actualProject = new Project();
+            var expectedCount = 0;
+
+            // Act
+            actualProject.Notes = actualProject.SortNotesByDate();
+
+            // Assert
+            Assert.AreEqual(expectedCount, actualProject.Notes.Count);
+        }
+
         [TestCase(TestName = "Тест сориторовки по времени создания")]
         public void ProjectTestNotesSortDate()
         {
             // Setup
-            var project = new Project();
-            project.Notes = new List<Note>();
-            var note1 = new Note();
-            var note2 = new Note();
-            note1.CreateTime = DateTime.MinValue;
-            project.Notes.Add(note1);
-            project.Notes.Add(note2);
+            var actualProject = new Project();
+            var date = new RandomDateTime();
+
+            for (int i = 0; i < 1000; i++)
+            {
+                actualProject.Notes.Add(new Note() { CreateTime = date.Next() });
+            }
+
+            var expectedProject = new Project();
+            expectedProject.Notes = actualProject.Notes.OrderBy(x => x.CreateTime).ToList();
 
             // Act
-            project.Notes = project.SortNotesByDate();
-
-            bool actual = project.Notes[0].CreateTime < project.Notes[1].CreateTime;
-            bool expected = true;
+            actualProject.Notes = actualProject.SortNotesByDate();
 
             // Assert
-            Assert.AreEqual(expected, actual, "тест сработал непрвильно");
+            Assert.AreEqual(expectedProject.Notes.Count, actualProject.Notes.Count);
+            Assert.Multiple(() =>
+            {
+                for (int i = 0; i < expectedProject.Notes.Count; i++)
+                {
+                    var expected = expectedProject.Notes[i];
+                    var actual = actualProject.Notes[i];
+
+                    Assert.AreEqual(expected, actual);
+                }
+            });
         }
     }
 }
