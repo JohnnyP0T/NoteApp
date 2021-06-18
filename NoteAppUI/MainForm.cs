@@ -40,6 +40,10 @@ namespace NoteAppUI
             FillNotesListBox(Project);
         }
 
+        /// <summary>
+        /// Заполнение NotesListBox.
+        /// </summary>
+        /// <param name="notes">Проект для заполнения</param>
         private void FillNotesListBox(Project notes)
         {
             NotesListBox.Items.Clear();
@@ -125,14 +129,12 @@ namespace NoteAppUI
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // Сохранение данных при закрытии формы.
             ProjectManager.SaveToFile(Project);
             Close();
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            // Сохранение данных при закрытии формы.
             ProjectManager.SaveToFile(Project);
         }
 

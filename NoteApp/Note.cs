@@ -48,11 +48,23 @@ namespace NoteApp
             return note;
         }
 
+        /// <summary>
+        /// Перегрузка оператора сравнеия.
+        /// </summary>
+        /// <param name="note1"></param>
+        /// <param name="note2"></param>
+        /// <returns></returns>
         public static bool operator ==(Note note1, Note note2)
         {
             return Object.Equals(note1, note2);
         }
 
+        /// <summary>
+        /// Перегрузка оператора сравнеия.
+        /// </summary>
+        /// <param name="note1"></param>
+        /// <param name="note2"></param>
+        /// <returns></returns>
         public static bool operator !=(Note note1, Note note2)
         {
             return !Object.Equals(note1, note2);
@@ -126,7 +138,6 @@ namespace NoteApp
         /// <summary>
         /// Время создания заметки.
         /// </summary>
-        //public readonly DateTime _createTime = DateTime.Now;
         public DateTime CreateTime { get; set; } = DateTime.Now;
 
         /// <summary>

@@ -11,6 +11,10 @@ namespace NoteApp
     /// </summary>
     public class Project
     {
+        /// <summary>
+        /// Сортировка листа по дате.
+        /// </summary>
+        /// <returns>Отсортированный лист</returns>
         public List<Note> SortNotesByDate()
         {
             if (Notes.Count != 0)
@@ -23,10 +27,13 @@ namespace NoteApp
 
         /// <summary>
         /// Лист с заметками.
-        /// Хотел сдлеать словарь, но в нем нельзя хранить одинаковые ключи.
         /// </summary>
         public List<Note> Notes { get; set; } = new List<Note>();
 
+        /// <summary>
+        /// Текущая заметка.
+        /// При запуске программы будет загружатся последняя выбранная заметка.
+        /// </summary>
         public int CurrentIndex { get; set; }
     }
 }
