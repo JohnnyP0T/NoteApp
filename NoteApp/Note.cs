@@ -35,6 +35,11 @@ namespace NoteApp
                     throw new ArgumentException("Имя больше 50 символов");
                 }
 
+                if (value == string.Empty)
+                {
+                    _title = "Без названия";
+                }
+
                 _title = value;
             }
         }

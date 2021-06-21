@@ -15,7 +15,7 @@ namespace NoteApp
         /// Лист с заметками.
         /// Хотел сдлеать словарь, но в нем нельзя хранить одинаковые ключи.
         /// </summary>
-        public List<Note> NotesCollection { get; set; }
+        public List<Note> NotesCollection { get; set; } = new List<Note>();
 
         private List<Note> _notesSortDate = new List<Note>();
 
