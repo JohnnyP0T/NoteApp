@@ -15,15 +15,15 @@ namespace NoteApp
     /// </summary>
     public static class ProjectManager
     {
+        /// <summary>
+        /// Имя файла сохранения.
+        /// </summary>
         private const string FileName = "fileSave.NoteApp";
-
-        public static string PathFileSaveWithName { get; set; } =
-            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\" + FileName;
 
         /// <summary>
         /// Сохранить Заметку.
         /// </summary>
-        /// <param name="data"></param>
+        /// <param name="data">Проект для сохранения</param>
         public static void SaveToFile(Project data)
         {
             var serializer = new JsonSerializer();
@@ -38,22 +38,28 @@ namespace NoteApp
         /// <summary>
         /// Загрузить заметку.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Загруженный проект</returns>
         public static Project LoadFromFile()
         {
             var serializer = new JsonSerializer();
-            using (var sr = new StreamReader(PathFileSaveWithName))
-            using (JsonReader reader = new JsonTextReader(sr))
+            try
             {
-                try
+                using (var sr = new StreamReader(PathFileSaveWithName))
+                using (JsonReader reader = new JsonTextReader(sr))
                 {
                     return (Project)serializer.Deserialize<Project>(reader);
                 }
-                catch (Exception e)
-                {
-                    return null;
-                }
+            }
+            catch (Exception exception)
+            {
+                return new Project();
             }
         }
+
+        /// <summary>
+        /// Полный путь вместе с именем сохранения.
+        /// </summary>
+        public static string PathFileSaveWithName { get; set; } =
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\" + FileName;
     }
 }

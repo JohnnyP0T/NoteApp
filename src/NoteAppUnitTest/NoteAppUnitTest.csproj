@@ -61,18 +61,19 @@
     <Compile Include="NoteTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProjectManagerUnitTest.cs" />
+    <Compile Include="RandomDateTime.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="TestFiles\fileSaveForTest.NoteApp">
+    <None Include="TestData\correctprojectfile.NoteApp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="TestFiles\fileSaveForTest_Broke.NoteApp">
+    <None Include="TestData\uncorrectprojectfile.NoteApp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TestFiles\ЗначенияПолейЗаметки.txt">
+    <Content Include="TestData\BigText.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

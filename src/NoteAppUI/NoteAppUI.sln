@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoteAppUI", "NoteAppUI.csproj", "{0A081307-903F-4394-AF63-FCEE03AE8202}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4E9D306E-5908-481F-A66E-C82327F2293D} = {4E9D306E-5908-481F-A66E-C82327F2293D}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoteApp", "..\NoteApp\NoteApp.csproj", "{4E9D306E-5908-481F-A66E-C82327F2293D}"
 EndProject

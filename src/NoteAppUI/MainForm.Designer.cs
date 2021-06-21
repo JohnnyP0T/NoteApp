@@ -174,7 +174,7 @@ namespace NoteAppUI
             this.RemoveNoteButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.RemoveNoteButton.FlatAppearance.BorderSize = 0;
             this.RemoveNoteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.RemoveNoteButton.Location = new System.Drawing.Point(91, 503);
+            this.RemoveNoteButton.Location = new System.Drawing.Point(85, 503);
             this.RemoveNoteButton.Name = "RemoveNoteButton";
             this.RemoveNoteButton.Size = new System.Drawing.Size(35, 31);
             this.RemoveNoteButton.TabIndex = 5;
@@ -188,7 +188,7 @@ namespace NoteAppUI
             this.AddNoteButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.AddNoteButton.FlatAppearance.BorderSize = 0;
             this.AddNoteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AddNoteButton.Location = new System.Drawing.Point(12, 503);
+            this.AddNoteButton.Location = new System.Drawing.Point(3, 503);
             this.AddNoteButton.Name = "AddNoteButton";
             this.AddNoteButton.Size = new System.Drawing.Size(35, 31);
             this.AddNoteButton.TabIndex = 4;
@@ -202,7 +202,7 @@ namespace NoteAppUI
             this.EditNoteButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.EditNoteButton.FlatAppearance.BorderSize = 0;
             this.EditNoteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.EditNoteButton.Location = new System.Drawing.Point(50, 503);
+            this.EditNoteButton.Location = new System.Drawing.Point(44, 503);
             this.EditNoteButton.Name = "EditNoteButton";
             this.EditNoteButton.Size = new System.Drawing.Size(35, 31);
             this.EditNoteButton.TabIndex = 3;
@@ -215,9 +215,10 @@ namespace NoteAppUI
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.NotesListBox.FormattingEnabled = true;
+            this.NotesListBox.IntegralHeight = false;
             this.NotesListBox.Location = new System.Drawing.Point(3, 33);
             this.NotesListBox.Name = "NotesListBox";
-            this.NotesListBox.Size = new System.Drawing.Size(226, 459);
+            this.NotesListBox.Size = new System.Drawing.Size(226, 464);
             this.NotesListBox.TabIndex = 2;
             this.NotesListBox.SelectedIndexChanged += new System.EventHandler(this.NotesListBox_SelectedIndexChanged);
             // 
@@ -229,20 +230,20 @@ namespace NoteAppUI
             this.CategoryComboBox.CausesValidation = false;
             this.CategoryComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CategoryComboBox.FormattingEnabled = true;
-            this.CategoryComboBox.Location = new System.Drawing.Point(107, 6);
+            this.CategoryComboBox.Location = new System.Drawing.Point(90, 6);
             this.CategoryComboBox.Name = "CategoryComboBox";
-            this.CategoryComboBox.Size = new System.Drawing.Size(122, 21);
+            this.CategoryComboBox.Size = new System.Drawing.Size(139, 21);
             this.CategoryComboBox.TabIndex = 1;
             this.CategoryComboBox.SelectedIndexChanged += new System.EventHandler(this.CategoryComboBox_SelectedIndexChanged);
             // 
             // CategoryLabel
             // 
             this.CategoryLabel.AutoSize = true;
-            this.CategoryLabel.Location = new System.Drawing.Point(12, 9);
+            this.CategoryLabel.Location = new System.Drawing.Point(3, 9);
             this.CategoryLabel.Name = "CategoryLabel";
-            this.CategoryLabel.Size = new System.Drawing.Size(89, 13);
+            this.CategoryLabel.Size = new System.Drawing.Size(81, 13);
             this.CategoryLabel.TabIndex = 0;
-            this.CategoryLabel.Text = "Show categories:";
+            this.CategoryLabel.Text = "Show category:";
             // 
             // TextNoteRichTextBox1
             // 
@@ -341,7 +342,7 @@ namespace NoteAppUI
             | System.Windows.Forms.AnchorStyles.Right)));
             this.NameNoteLabel.AutoSize = true;
             this.NameNoteLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.NameNoteLabel.Location = new System.Drawing.Point(3, 12);
+            this.NameNoteLabel.Location = new System.Drawing.Point(3, 3);
             this.NameNoteLabel.Name = "NameNoteLabel";
             this.NameNoteLabel.Size = new System.Drawing.Size(45, 24);
             this.NameNoteLabel.TabIndex = 0;

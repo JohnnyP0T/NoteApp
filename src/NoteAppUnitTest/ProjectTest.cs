@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using NoteApp;
@@ -22,11 +23,11 @@ namespace NoteAppUnitTest
             expected.Add(note);
             
             // Act
-            _notes.NotesCollection = expected;
+            _notes.Notes = expected;
             
             // Assert
-            var actual = _notes.NotesCollection;
-            Assert.AreEqual(expected, actual, "Тест сработал неправильно");
+            var actual = _notes.Notes;
+            Assert.AreEqual(expected, actual);
         }
 
         [TestCase(TestName = "Тест Гетера NotesCollection")]
@@ -37,13 +38,13 @@ namespace NoteAppUnitTest
             var note = new Note();
             var expected = new List<Note>();
             expected.Add(note);
-            _notes.NotesCollection = expected;
+            _notes.Notes = expected;
             
             // Act
-            var actual = _notes.NotesCollection;
+            var actual = _notes.Notes;
             
             // Assert
-            Assert.AreEqual(expected, actual, "Тест сработал неправильно");
+            Assert.AreEqual(expected, actual);
         }
 
         [TestCase(TestName = "Тест сетера CurrentNoteIndex")]
@@ -54,10 +55,10 @@ namespace NoteAppUnitTest
             int expected = 1;
 
             // Act
-            project.CurrentNoteIndex = expected;
+            project.CurrentIndex = expected;
 
             // Assert
-            var actual = project.CurrentNoteIndex;
+            var actual = project.CurrentIndex;
             Assert.AreEqual(expected, actual, "Тест сработал неправильно");
         }
 
@@ -67,35 +68,59 @@ namespace NoteAppUnitTest
             // Setup
             var project = new Project();
             int expected = 1;
-            project.CurrentNoteIndex = expected;
+            project.CurrentIndex = expected;
 
             // Act
-            var actual = project.CurrentNoteIndex;
+            var actual = project.CurrentIndex;
 
             // Assert
             Assert.AreEqual(expected, actual, "Тест сработал неправильно");
+        }
+
+        [TestCase(TestName = "Тест сориторовки по времени создания пустого листа")]
+        public void ProjectTestNotesSortDate_EmptyList()
+        {
+            // Setup
+            var actualProject = new Project();
+            var expectedCount = 0;
+
+            // Act
+            actualProject.Notes = actualProject.SortNotesByDate();
+
+            // Assert
+            Assert.AreEqual(expectedCount, actualProject.Notes.Count);
         }
 
         [TestCase(TestName = "Тест сориторовки по времени создания")]
         public void ProjectTestNotesSortDate()
         {
             // Setup
-            var project = new Project();
-            project.NotesCollection = new List<Note>();
-            var note1 = new Note();
-            var note2 = new Note();
-            note1.CreateTime = DateTime.MinValue;
-            project.NotesCollection.Add(note1);
-            project.NotesCollection.Add(note2);
+            var actualProject = new Project();
+            var date = new RandomDateTime();
+
+            for (int i = 0; i < 1000; i++)
+            {
+                actualProject.Notes.Add(new Note() { CreateTime = date.Next() });
+            }
+
+            var expectedProject = new Project();
+            expectedProject.Notes = actualProject.Notes.OrderBy(x => x.CreateTime).ToList();
 
             // Act
-            project.NotesCollection = project.NotesSortDate();
-
-            bool actual = project.NotesCollection[0].CreateTime < project.NotesCollection[1].CreateTime;
-            bool expected = true;
+            actualProject.Notes = actualProject.SortNotesByDate();
 
             // Assert
-            Assert.AreEqual(expected, actual, "тест сработал непрвильно");
+            Assert.AreEqual(expectedProject.Notes.Count, actualProject.Notes.Count);
+            Assert.Multiple(() =>
+            {
+                for (int i = 0; i < expectedProject.Notes.Count; i++)
+                {
+                    var expected = expectedProject.Notes[i];
+                    var actual = actualProject.Notes[i];
+
+                    Assert.AreEqual(expected, actual);
+                }
+            });
         }
     }
 }
