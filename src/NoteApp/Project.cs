@@ -34,6 +34,6 @@ namespace NoteApp
         /// Текущая заметка.
         /// При запуске программы будет загружатся последняя выбранная заметка.
         /// </summary>
-        public int CurrentIndex { get; set; }
+        public Note CurrentNote { get; set; }
     }
 }

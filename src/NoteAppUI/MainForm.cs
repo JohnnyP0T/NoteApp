@@ -19,7 +19,7 @@ namespace NoteAppUI
         /// <summary>
         /// Поле формы для хранения обьектов.
         /// </summary>
-        public Project Project { get; set; }
+        public Project Project { get; set; } 
 
         public MainForm()
         {
@@ -37,21 +37,33 @@ namespace NoteAppUI
             CategoryComboBox.Items.Add("All");
             CategoryComboBox.SelectedItem = "All";
             
-            FillNotesListBox(Project);
+            FillNotesListBox();
+
+            if (Project.Notes.Count != 0)
+            {
+                NotesListBox.SelectedItem = Project.CurrentNote;
+            }
         }
 
         /// <summary>
         /// Заполнение NotesListBox.
         /// </summary>
         /// <param name="notes">Проект для заполнения</param>
-        private void FillNotesListBox(Project notes)
+        private void FillNotesListBox()
         {
+            if (Project.Notes.Count == 0)
+            {
+                ClearRightPanel();
+                NotesListBox.Items.Clear();
+                Project.CurrentNote = null;
+                return;
+            }
             NotesListBox.Items.Clear();
 
             Project.Notes = Project.SortNotesByDate();
             Project.Notes.Reverse();
 
-            foreach (var note in notes.Notes)
+            foreach (var note in Project.Notes)
             {
                 if ((note.Category.ToString() == CategoryComboBox.SelectedItem.ToString()) 
                     || CategoryComboBox.SelectedItem.ToString() == "All")
@@ -62,11 +74,27 @@ namespace NoteAppUI
 
             NotesListBox.DisplayMember = "note.Title"; 
             NotesListBox.ValueMember = "note";
+        }
 
-            if (NotesListBox.Items.Count != 0)
-            {
-                NotesListBox.SelectedIndex = 0;
-            }
+        /// <summary>
+        /// Очистка правой панели.
+        /// </summary>
+        private void ClearRightPanel()
+        {
+            CreatedTimeMaskedTextBox.Text = string.Empty;
+            NameNoteLabel.Text = string.Empty;
+            CategoryChangeableLabel.Text = string.Empty;
+            ModifiedMaskedTextBox.Text = string.Empty;
+            TextNoteRichTextBox1.Text = string.Empty;
+        }
+
+        private void FillRightPanel(Note note)
+        {
+            CreatedTimeMaskedTextBox.Text = Convert.ToString(note.CreateTime);
+            NameNoteLabel.Text = note.Title;
+            CategoryChangeableLabel.Text = Convert.ToString(note.Category);
+            ModifiedMaskedTextBox.Text = Convert.ToString(note.ModifiedTime);
+            TextNoteRichTextBox1.Text = Convert.ToString(note.Text);
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -77,7 +105,7 @@ namespace NoteAppUI
 
         private void CategoryComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            FillNotesListBox(Project);
+            FillNotesListBox();
         }
 
         private void AddNoteButton_Click(object sender, EventArgs e)
@@ -88,12 +116,12 @@ namespace NoteAppUI
             if (result == DialogResult.OK && noteForm.Note != null)
             {
                 Project.Notes.Add(noteForm.Note);
-                FillNotesListBox(Project);
-                NotesListBox.SelectedItem = noteForm.Note;
+                FillNotesListBox();
                 if (CategoryComboBox.SelectedItem.ToString() != "All")
                 {
                     CategoryComboBox.SelectedItem = noteForm.Note.Category;
                 }
+                NotesListBox.SelectedItem = noteForm.Note;
             }
 
             ProjectManager.SaveToFile(Project);
@@ -105,27 +133,18 @@ namespace NoteAppUI
             {
                 Note note = (Note)NotesListBox.SelectedItem;
 
-                CreatedTimeMaskedTextBox.Text = Convert.ToString(note.CreateTime);
-                NameNoteLabel.Text = note.Title;
-                CategoryChangeableLabel.Text = Convert.ToString(note.Category);
-                ModifiedMaskedTextBox.Text = Convert.ToString(note.ModifiedTime);
-                TextNoteRichTextBox1.Text = Convert.ToString(note.Text);
+                FillRightPanel(note);
 
                 if (NotesListBox.Items.Count != 0)
                 {
-                    Project.CurrentIndex = NotesListBox.SelectedIndex;
+                    Project.CurrentNote = (Note)NotesListBox.SelectedItem;
                 }
             }
             else
             {
-                CreatedTimeMaskedTextBox.Text = string.Empty;
-                NameNoteLabel.Text = string.Empty;
-                CategoryChangeableLabel.Text = string.Empty;
-                ModifiedMaskedTextBox.Text = string.Empty;
-                TextNoteRichTextBox1.Text = string.Empty;
+                ClearRightPanel();
             }
         }
-
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -157,7 +176,7 @@ namespace NoteAppUI
             {
                 CategoryComboBox.SelectedItem = note.Category;
             }
-            FillNotesListBox(Project);
+            FillNotesListBox();
             NotesListBox.SelectedItem = note;
         }
 
@@ -167,14 +186,22 @@ namespace NoteAppUI
             {
                 return;
             }
-            Note note = (Note)NotesListBox.SelectedItem;
-            DialogResult result = MessageBox.Show("Are you sure want to delete this note: " + note.Title + "?", "Attention", MessageBoxButtons.OKCancel);
+            var note = (Note)NotesListBox.SelectedItem;
+            var result = MessageBox.Show("Are you sure want to delete this note: " + note.Title + "?", "Attention", MessageBoxButtons.OKCancel);
             if(result == DialogResult.OK)
             {
                 Project.Notes.Remove(note);
             }
             ProjectManager.SaveToFile(Project);
-            FillNotesListBox(Project);
+            FillNotesListBox();
+            if (NotesListBox.Items.Count != 0)
+            {
+                NotesListBox.SelectedIndex = 0;
+            }
+            else
+            {
+                ClearRightPanel();
+            }
         }
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)

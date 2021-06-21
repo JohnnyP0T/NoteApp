@@ -47,7 +47,13 @@ namespace NoteApp
                 using (var sr = new StreamReader(PathFileSaveWithName))
                 using (JsonReader reader = new JsonTextReader(sr))
                 {
-                    return (Project)serializer.Deserialize<Project>(reader);
+                    var project = (Project) serializer.Deserialize<Project>(reader);
+                    if (project == null)
+                    {
+                        return new Project();
+                    }
+
+                    return project;
                 }
             }
             catch (Exception exception)

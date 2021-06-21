@@ -225,7 +225,7 @@ namespace NoteAppUnitTest
 
         // Сомневаюсь в этом тесте, так как он не сработает если тест залагает на моменте после вызова метода Setup.
         [TestCase(TestName = "Тест гетера времени создания без инциализации поля. " +
-                             "Должно быть время создания тоесть время вызова Setup()")]
+                             "Должно быть время создания то есть время вызова Setup()")]
         public void TestNoteGetCreateTime_WithoutInitialization_CorrectValue()
         {
             // Setup

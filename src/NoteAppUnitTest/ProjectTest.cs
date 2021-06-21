@@ -52,14 +52,14 @@ namespace NoteAppUnitTest
         {
             // Setup
             var project = new Project();
-            int expected = 1;
+            var expectedNote = new Note();
 
             // Act
-            project.CurrentIndex = expected;
+            project.CurrentNote = expectedNote;
 
             // Assert
-            var actual = project.CurrentIndex;
-            Assert.AreEqual(expected, actual, "Тест сработал неправильно");
+            var actualNote = project.CurrentNote;
+            Assert.AreEqual(expectedNote, actualNote, "Тест сработал неправильно");
         }
 
         [TestCase(TestName = "Тест гетера CurrentNoteIndex")]
@@ -67,14 +67,14 @@ namespace NoteAppUnitTest
         {
             // Setup
             var project = new Project();
-            int expected = 1;
-            project.CurrentIndex = expected;
+            var expectedNote = new Note();
+            project.CurrentNote = expectedNote;
 
             // Act
-            var actual = project.CurrentIndex;
+            var actualNote = project.CurrentNote;
 
             // Assert
-            Assert.AreEqual(expected, actual, "Тест сработал неправильно");
+            Assert.AreEqual(expectedNote, actualNote, "Тест сработал неправильно");
         }
 
         [TestCase(TestName = "Тест сориторовки по времени создания пустого листа")]
