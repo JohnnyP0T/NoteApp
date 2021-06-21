@@ -17,19 +17,22 @@ namespace NoteApp
         private const int LimitLengthName = 50;
 
         /// <summary>
-        /// Дефолтное название заметки.
+        /// Дефолтное название.
         /// </summary>
         private const string DefaultTitle = "Без названия";
 
+        /// <summary>
+        /// Дефолтный текст.
+        /// </summary>
         private const string DefaultText = "";
 
         /// <summary>
-        /// Название заметки.
+        /// Название.
         /// </summary>
         private string _title = DefaultTitle;
 
         /// <summary>
-        /// Текст заметки.
+        /// Текст.
         /// </summary>
         private string _text = DefaultText;
 
@@ -89,7 +92,7 @@ namespace NoteApp
         }
 
         /// <summary>
-        /// Категория заметки.
+        /// Категория.
         /// Дефолтное значение Other.
         /// </summary>
         public NoteCategory Category { get; set; } = NoteCategory.Other;
@@ -136,12 +139,12 @@ namespace NoteApp
         }
 
         /// <summary>
-        /// Время создания заметки.
+        /// Время создания.
         /// </summary>
         public DateTime CreateTime { get; set; } = DateTime.Now;
 
         /// <summary>
-        /// Время последнего изменения заметки.
+        /// Время последнего изменения.
         /// </summary>
         public DateTime ModifiedTime { get; set; }
     }
