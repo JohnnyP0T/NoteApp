@@ -88,6 +88,10 @@ namespace NoteAppUI
             TextNoteRichTextBox1.Text = string.Empty;
         }
 
+        /// <summary>
+        /// Заполнение Правой панели.
+        /// </summary>
+        /// <param name="note">Заметка</param>
         private void FillRightPanel(Note note)
         {
             CreatedTimeMaskedTextBox.Text = Convert.ToString(note.CreateTime);
