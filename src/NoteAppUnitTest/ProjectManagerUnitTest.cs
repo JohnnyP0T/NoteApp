@@ -38,7 +38,6 @@ namespace NoteAppUnitTest
         /// <returns>Корректный проект</returns>
         private Project GetCorrectProject()
         {
-            //TODO
             var project = new Project();
             var note = new Note
             {

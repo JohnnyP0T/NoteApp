@@ -11,22 +11,25 @@ namespace NoteAppUnitTest
 {
     class ProjectTest
     {
-        private Project _notes;
+        /// <summary>
+        /// Проект.
+        /// </summary>
+        private Project _project;
 
         [TestCase(TestName = "Тест Сетера NotesCollection")]
         public void ProjectTestSetNoteCollection()
         {
             // Setup
-            _notes = new Project();
+            _project = new Project();
             var note = new Note();
             var expected = new List<Note>();
             expected.Add(note);
             
             // Act
-            _notes.Notes = expected;
+            _project.Notes = expected;
             
             // Assert
-            var actual = _notes.Notes;
+            var actual = _project.Notes;
             Assert.AreEqual(expected, actual);
         }
 
@@ -34,14 +37,14 @@ namespace NoteAppUnitTest
         public void ProjectTestGetNoteCollection()
         {
             // Setup
-            _notes = new Project();
+            _project = new Project();
             var note = new Note();
             var expected = new List<Note>();
             expected.Add(note);
-            _notes.Notes = expected;
+            _project.Notes = expected;
             
             // Act
-            var actual = _notes.Notes;
+            var actual = _project.Notes;
             
             // Assert
             Assert.AreEqual(expected, actual);
